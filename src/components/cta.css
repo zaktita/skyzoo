@@ -1,0 +1,36 @@
+.cta{
+    display: grid;
+grid-template-columns: repeat(10, 1fr);
+grid-template-rows: 1fr; 
+padding: 40px;
+background-color: var(--secondcolor);
+}
+.cta-content { 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px;
+    background-color: white;
+    grid-area:  1 / 1 / 2 / 4; 
+}
+
+.cta-content h2{
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+.cta-img { 
+    background-image: url(../assets/cta.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    grid-area:  1 / 4 / 2 / 11; } 
+
+
+@media (max-width:600px){
+.cta{
+  display: flex;
+  flex-wrap: wrap;  
+}
+.cta-content{
+    text-align: center;
+}
+}

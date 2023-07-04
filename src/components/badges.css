@@ -1,0 +1,26 @@
+.badges{
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 40px 0;
+}
+
+.badge{
+    text-align: center;
+}
+.badge img{
+    width: 30px;
+}
+
+.icons{
+    color: var(--maincolor);
+    font-size: 40px;
+}
+
+@media (max-width: 760px) {
+    .copyright{
+        justify-content: center;
+        gap: 20px;
+    }}

@@ -1,0 +1,19 @@
+.featured-menu{
+    display: flex;
+    text-align: center;
+    gap: 20px;
+    justify-content: center;
+}
+
+.featured{
+    padding: 40px 0;
+}
+
+.car-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 700px;
+    margin: auto;
+}

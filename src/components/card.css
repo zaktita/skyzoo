@@ -1,0 +1,36 @@
+.featured-card img{
+    max-width: 12rem;
+
+}
+.home-card img{
+    width: 15vw;
+    min-width: 100px;
+}
+
+
+.search-card img{
+    width: 15vw;
+    min-width: 100px;
+
+}
+
+.cart-card{
+    display: flex;
+    gap: 20px;
+}
+
+.cart-card img{
+    width: 15vw;
+}
+.cart-card h4{
+    font-size: 1rem;
+    color: black;
+    font-weight: 700;
+}
+@media (max-width:500px){
+    .featured-card img{
+        max-width: 10rem;
+    }
+}
+
+

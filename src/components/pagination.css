@@ -1,0 +1,20 @@
+.pagination{
+    list-style: none;
+    text-decoration: none;
+    display: flex;
+    gap: 10px;
+    margin: auto;
+}
+.pagination a{
+    text-decoration: none;
+    background-color: var(--maincolor);
+    padding: 5px 10px;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+}
+.pagination a:hover{
+    background-color: white;
+    color: var(--maincolor);
+    border: 1px solid var(--maincolor);
+}

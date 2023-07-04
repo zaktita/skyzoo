@@ -1,0 +1,16 @@
+.mainBtn{
+    padding: 10px;
+    border: none;
+    background-color: var(--maincolor);
+}
+.mainBtn .icon,.secondBtn .icon{
+vertical-align: middle;
+margin-left: 10px;
+}
+
+.secondBtn{
+    padding-bottom: 5px;
+    border: none;
+    border-bottom: 1px solid;
+    background-color: transparent;
+}

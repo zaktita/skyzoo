@@ -1,0 +1,24 @@
+/* .carousel-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    overflow: hidden;
+  }
+  
+  .carousel-slide {
+    width: 100%;
+    display: flex;
+    cursor: pointer;
+    animation: slideAnimation 0.3s ease-in-out;
+  }
+  
+  @keyframes slideAnimation {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+   */

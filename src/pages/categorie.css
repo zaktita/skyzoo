@@ -1,0 +1,22 @@
+.filters-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom:1px solid var(--grey) ;
+    padding: 10px 0;
+}
+.categorie{
+text-align: center;
+
+}
+.filters{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.categorie{
+    display: flex;
+    flex-direction: column;
+    gap:20px
+}

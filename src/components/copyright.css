@@ -1,0 +1,12 @@
+.copyright{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+@media (max-width: 760px) {
+    .copyright{
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }}
