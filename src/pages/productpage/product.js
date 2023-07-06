@@ -116,7 +116,7 @@ const handleSizeChange = (e)=>{
           </select>
         
 
-          <div style={{ display: 'flex', gap: '10px' }}>
+<div style={{ display: 'flex', gap: '10px' }}>
   {productColors.map((color, index) => (
     <div
       key={index}
@@ -181,7 +181,7 @@ const handleSizeChange = (e)=>{
       <h3>Vous pouvez aimer</h3>
       <div className='you-may-like'>
         {similarProducts.map((product,index) => (
-          <Card key={product.id} product={product} designclass='home-card' />
+          <Card key={product.product_id} product={product} designclass='home-card' />
         ))}
       </div>
 

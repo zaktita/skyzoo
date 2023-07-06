@@ -12,7 +12,14 @@
   align-items: center;
   padding: 1rem 0;
   cursor: pointer;
+
 }
+
+.accordion-header h3{
+  font-weight: 700;
+  font-size: .9rem;
+}
+
 
 .accordion-header:hover {
   background-color: #e5e5e543;

@@ -4,8 +4,9 @@
     display: flex;
     gap: 10px;
     margin: auto;
+    margin-top: 20px;
 }
-.pagination a{
+.pagination button{
     text-decoration: none;
     background-color: var(--maincolor);
     padding: 5px 10px;
@@ -13,7 +14,12 @@
     border: 1px solid white;
     cursor: pointer;
 }
-.pagination a:hover{
+.pagination button:hover{
+    background-color: white;
+    color: var(--maincolor);
+    border: 1px solid var(--maincolor);
+}
+.pagination .active button{
     background-color: white;
     color: var(--maincolor);
     border: 1px solid var(--maincolor);

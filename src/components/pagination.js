@@ -46,7 +46,7 @@ function PaginatedItems({ itemsPerPage }) {
         breakLabel="..."
         nextLabel="next >"
         onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={1}
         pageCount={pageCount}
         previousLabel="< previous"
         renderOnZeroPageCount={null}

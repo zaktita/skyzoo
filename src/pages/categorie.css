@@ -5,10 +5,7 @@
     border-bottom:1px solid var(--grey) ;
     padding: 10px 0;
 }
-.categorie{
-text-align: center;
 
-}
 .filters{
     display: flex;
     align-items: center;
@@ -18,5 +15,5 @@ text-align: center;
 .categorie{
     display: flex;
     flex-direction: column;
-    gap:20px
+    gap:20px;
 }

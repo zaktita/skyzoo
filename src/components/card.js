@@ -20,7 +20,7 @@ import './card.css'
         <img src={`http://localhost:8000/storage/${product.image}`} alt={product.title} />
         <div className='card-info'>
         <h4>{product.title}</h4>
-        <h3>{`${product.price} `}</h3>
+        <h3>{`${product.price} dh`}</h3>
         </div>
       </div>
     );
