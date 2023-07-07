@@ -16,6 +16,7 @@ function Categorie() {
   const [results, setResults] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(8);
+  const [filters, setFilters] = useState({})
 
   useEffect(() => {
     fetchProductFromServer();
@@ -85,7 +86,7 @@ function Categorie() {
         <h4>{results} Products</h4>
         <div className="filters">
           <h3>filters</h3>
-          <Filters />
+          <Filters filters={filters} setFilters={setFilters} />
         </div>
       </div>
 

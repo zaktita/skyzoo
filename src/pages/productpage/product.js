@@ -174,6 +174,10 @@ const handleSizeChange = (e)=>{
                 Shop with confidence with free returns.</p>
             </Accordion>
             <Accordion title="Contact us"></Accordion>
+            <details>
+              <summary>this is a test accordion</summary>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, praesentium?</p>
+            </details>
           </div>
         </div>
 
