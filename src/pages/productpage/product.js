@@ -31,7 +31,7 @@ const [similarProducts,setSimilarProducts] = useState([]);
   }, []);
   const fetchProductFromServer = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/products/10");
+      const response = await axios.get("http://127.0.0.1:8000/api/products/13");
       setproductImages(response.data.productImages)
       setProductTile(response.data.product.title)
       setProductDescription(response.data.product.description)
@@ -82,6 +82,10 @@ const handleSizeChange = (e)=>{
   setSelectedProductSize(e.target.value)
   console.log(selectedProductSize);
 }
+
+
+
+
   return (
     <div className='col-md product-page'>
       <div className='product'>
@@ -112,8 +116,8 @@ const handleSizeChange = (e)=>{
             <option key={index} value={size}>{size}</option>
         ))
         }
-        
           </select>
+
         
 
 <div style={{ display: 'flex', gap: '10px' }}>

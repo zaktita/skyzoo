@@ -11,12 +11,16 @@ function Filters() {
     const [productColors, setProductColors] = useState([]);
     const [productSize, setProductSize] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [minPrice, setMinPrice] = useState('');
-    const [maxPrice, setMaxPrice] = useState('');
+
+
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(0);
+    const [activeCategory, setActiveCategory] = useState(true);
 
 
     const [filterColor, setFilterColor] = useState([]);
     const [filterSize, setFilterSize] = useState([]);
+    const [filterCategory, setFilterCategory] = useState();
     const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
@@ -33,7 +37,7 @@ function Filters() {
             setProductColors(response.data.colors);
             setCategories(response.data.category);
 
-            console.log(response.data);
+            console.log(response.data.category);
         } catch (error) {
             console.log(error);
         }
@@ -64,24 +68,11 @@ function Filters() {
 
 
 
-    // Handle price change
-    const handlePriceChange = (e) => {
-        // TODO: Handle price change logic
-    };
-    const handleCategoryChange = (e) => {
-        const checked = e.target.checked;
-        const value = e.target.value;
 
-        // Update the selected categories
-        const updatedCategories = checked
-            ? [...categories, value]
-            : categories.filter((category) => category !== value);
-        setCategories(updatedCategories);
-
-        // Add/remove box shadow based on selection
-        e.currentTarget.nextElementSibling.style.boxShadow = checked
-            ? `0 0 0 2px white , 0 0 0 3px ${value}`
-            : 'none';
+    const handleCategoryChange = (category) => {
+        setActiveCategory(category);
+        setFilterCategory(category.category_name)
+        console.log(category.category_name);
     };
 
 
@@ -93,11 +84,11 @@ function Filters() {
         if (!checked && itsinarray) {
             setFilterSize(filterSize.filter(item => item !== value))
             e.currentTarget.parentElement.style.backgroundColor = `white`
-            e.currentTarget.parentElement.style.color = `black`
+            e.currentTarget.parentElement.style.color = `var(--maincolor)`
         }
         else if (checked && !itsinarray) {
             setFilterSize([...filterSize, value]);
-            e.currentTarget.parentElement.style.backgroundColor = 'black'
+            e.currentTarget.parentElement.style.backgroundColor = 'var(--maincolor)'
             e.currentTarget.parentElement.style.color = `white`
         }
     };
@@ -123,36 +114,74 @@ function Filters() {
             </button>
 
             {isOpen && (
-                <div id="cartmodal" className="cartmodal active">
-                    <div className="cartcontent" style={{ width: '100%' }}>
-                        <div className="cartheader" style={{ marginBottom: '10px' }}>
-                            <button style={{ border: '1px solid #000', padding: '5px 15px' }}>Clear All</button>
-                            <button data-dismiss="cartmodal" onClick={toggleModal}>
-                                <AiOutlineClose />
-                            </button>
-                        </div>
+                <div id="cartmodal" className="cartmodal active" style={{ overflowY: 'scroll' }}>
+                    <div className="cartcontent" style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+
+                    }}>
                         <div className="cartbody">
+                            <div className="cartheader" style={{ marginBottom: '10px' }}>
+                                <button style={{ border: '1px solid #000', padding: '5px 15px' }}>Clear All</button>
+                                <button data-dismiss="cartmodal" onClick={toggleModal}>
+                                    <AiOutlineClose />
+                                </button>
+                            </div>
                             <Accordion title="Category">
                                 <div>
-                                    {categories.map((category, index) => (
-                                        <div key={index + category.id}>
-                                            <input type="checkbox" name="category" id={category.id} onChange={handleCategoryChange} />
-                                            <label htmlFor={category.id}>{category.name}</label>
+                                    {categories.map((category, index, e) => (
+                                        <div key={index}
+
+                                            style={{ display: 'flex', alignItems: 'center', gap: '20px', margin: '5px 0' }}>
+                                            <input
+                                                checked={category === activeCategory} // Assuming you have an activeCategory state to track the active category
+                                                style={{
+                                                    appearance: 'none',
+                                                    width: '20px',
+                                                    height: '20px',
+                                                    cursor: 'pointer',
+                                                    border: '2px solid var(--maincolor)',
+                                                    backgroundColor: category === activeCategory ? 'var(--black)' : 'var(--white)',
+                                                    borderRadius: '5px',
+                                                }}
+                                                type="radio"
+                                                name="category"
+                                                id={`category-${index}`}
+                                                onChange={() => handleCategoryChange(category, e)} // Passing the category as an argument to the handler
+                                            />
+                                            <label htmlFor={`category-${index}`}>{category.category_name}</label>
                                         </div>
                                     ))}
                                 </div>
+
                             </Accordion>
                             <Accordion title="Price">
                                 <div>
-                                    <input type="text" name="minPrice" placeholder="Min Price" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
-                                    <input type="text" name="maxPrice" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
-                                    <button onClick={handlePriceChange}>Apply</button>
+                                    <input
+                                        style={{
+                                            color: 'var(--black)',
+                                            border: '1px solid var(--maincolor)',
+                                            margin: '5px 0',
+                                            padding: '5px',
+                                        }}
+                                        type="text" name="minPrice" placeholder="Min Price" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
+                                    <input
+                                        style={{
+                                            color: 'var(--black)',
+                                            border: '1px solid var(--maincolor)',
+                                            margin: '5px 0',
+                                            padding: '5px',
+                                        }}
+                                        type="text" name="maxPrice" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
                                 </div>
                             </Accordion>
                             <Accordion title="Color">
                                 <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', listStyle: 'none' }}>
                                     {productColors.map((color, index) => (
-                                        <li key={color.id} style={{ width: '40%', display: 'flex', alignItems: 'center', gap: '20px' }}>
+                                        <li key={index} style={{ width: '40%', display: 'flex', alignItems: 'center', gap: '20px' }}>
                                             <div
                                                 className='color-box'
                                                 style={{ backgroundColor: color.color_name, width: '20px', position: 'relative' }}
@@ -173,24 +202,24 @@ function Filters() {
                                 </ul>
                             </Accordion>
                             <Accordion title="Size">
-                                <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', listStyle: 'none' }}>
+                                <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', listStyle: 'none', color: 'var(--maincolor)' }}>
                                     {productSize.map((size, index) => (
 
-                                            <li
+                                        <li
                                             key={size.id}
-                                                className='size-box'
-                                                style={{ display: 'flex', border: '1px solid' ,alignItems: 'center', padding: '15px', position: 'relative' }}
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    name="size"
-                                                    id={`size_${index}`}
-                                                    value={size.size}
-                                                    style={{ visibility: 'hidden', position: 'absolute' , inset:'auto'}}
-                                                    onChange={handleSizeChange}
-                                                />
-                                                <label htmlFor={`size_${index}`} style={{cursor:'pointer'}} >{size.size}</label>
-                                            </li>
+                                            className='size-box'
+                                            style={{ display: 'flex', border: '1px solid', alignItems: 'center', padding: '15px', position: 'relative' }}
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                name="size"
+                                                id={`size_${index}`}
+                                                value={size.size}
+                                                style={{ visibility: 'hidden', position: 'absolute', inset: 'auto' }}
+                                                onChange={handleSizeChange}
+                                            />
+                                            <label htmlFor={`size_${index}`} style={{ cursor: 'pointer' }} >{size.size}</label>
+                                        </li>
 
                                     ))}
                                 </ul>
@@ -199,7 +228,7 @@ function Filters() {
 
                         <div className="cartfooter">
                             <button
-                                style={{ backgroundColor: 'grey', color: 'white', width: '100%', padding: '5px 10px' }}
+                                style={{ backgroundColor: 'var(--maincolor)', color: 'white', width: '100%', padding: '15px' }}
                                 onClick={handleApplyFilters}
                             >
                                 Apply filters

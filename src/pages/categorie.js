@@ -25,7 +25,7 @@ function Categorie() {
   // Fetch products from the server
   const fetchProductFromServer = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/category/1');
+      const response = await axios.get('http://127.0.0.1:8000/api/category/2');
       setProducts(response.data.products);
       setCategoryName(response.data.category.category_name);
       setCategoryDescription(response.data.category.category_description);
