@@ -42,10 +42,11 @@ const Navbar = () => {
         <img src={logo} alt="skyzo shoes logo" />
       <nav className="navbar_menu">
       <ul>
-  <li><Link to="/Home">Home</Link></li>
-  <li><Link to="/Product">Products</Link></li>
-  <li><Link to="/Categorie">About</Link></li>
-  <li><a href="#">Contact</a></li>
+  <li><Link to="/home">Home</Link></li>
+  <li><a href="/category/Women's Sneakers">Sneakers</a></li>
+  <li><a href="/category/Heals">Heals</a></li>
+  <li><a href="/category/shoes">shoes</a></li>
+
 </ul>
       </nav>
       </div>

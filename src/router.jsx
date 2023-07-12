@@ -12,8 +12,8 @@ function MainRouter() {
         <Route path="/" element={<App />}>
           <Route index element={<Navigate to="/Home" replace />} />
           <Route path="/Home" element={<Home />} />
-          <Route path="/Product" element={<Product />} />
-          <Route path="/Categorie" element={<Categorie />} />
+          <Route path="/product/:product_id" element={<Product />} />
+          <Route path="/Category/:urlCategory" element={<Categorie />} />
         </Route>
       </Routes>
     </Router>

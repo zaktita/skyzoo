@@ -10,6 +10,7 @@ import images1 from '../../assets/jimmy/ANTIBESFQYF_081101_ANGLE.jpg'
 import images2 from '../../assets/jimmy/ANTIBESFQYF_081101_SIDE.jpg'
 import images3 from '../../assets/jimmy/ANTIBESFQYF_081101_MODEL_vg63.jpg'
 import axios from 'axios';
+import { useParams } from 'react-router';
 
 
 
@@ -25,13 +26,14 @@ const [selectedProductSize,setSelectedProductSize] = useState('');
 const [selectedProductColor,setSelectedProductColor] = useState('');
 
 const [similarProducts,setSimilarProducts] = useState([]);
+const {product_id}= useParams()
 
   useEffect(() => {
     fetchProductFromServer();
   }, []);
   const fetchProductFromServer = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/products/13");
+      const response = await axios.get(`http://127.0.0.1:8000/api/products/${product_id}`);
       setproductImages(response.data.productImages)
       setProductTile(response.data.product.title)
       setProductDescription(response.data.product.description)
@@ -178,10 +180,6 @@ const handleSizeChange = (e)=>{
                 Shop with confidence with free returns.</p>
             </Accordion>
             <Accordion title="Contact us"></Accordion>
-            <details>
-              <summary>this is a test accordion</summary>
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, praesentium?</p>
-            </details>
           </div>
         </div>
 
