@@ -26,6 +26,7 @@ function Categorie() {
   })
 
   useEffect(() => {
+    console.log(filters);
     fetchProductFromServer();
   }, [filters]);
 
@@ -35,22 +36,40 @@ function Categorie() {
   const fetchProductFromServer = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/category/${filters.filterCategory}`);
-      setProducts(response.data.products);
+      let filteredProducts = response.data.products;
       setCategoryName(response.data.category.category_name);
       setCategoryDescription(response.data.category.category_description);
-      setResults(response.data.products.length);
-console.log(response.data.products);
-      if(filters.filterColor.length>0){
-        setProducts(response.data.products.filter((product) => filters.filterColor.some((color) => product.colors.includes(color))))
+      // console.log(response.data.products);
+      // if (filters.filterColor.length > 0) {
+      //   setProducts(response.data.products.filter((product) => filters.filterColor.some((color) => product.colors.includes(color))))
+      // }
+      // if (filters.filterSize.length > 0) {
+      //   setProducts(response.data.products.filter((product) => filters.filterSize.some((size) => product.sizes.includes(size))))
+      // }
+      // if (filters.minPrice >= 0 || filters.maxPrice > 0) {
+      //   setProducts(response.data.products.filter((product) => product.price >= filters.minPrice && product.price <= filters.maxPrice))
+      // }
+
+      if (filters.filterColor.length > 0) {
+        filteredProducts = filteredProducts.filter((product) =>
+          filters.filterColor.some((color) => product.colors.includes(color))
+        );
       }
-      if(filters.filterSize.length>0){
-        setProducts(response.data.products.filter((product) => filters.filterSize.some((size) => product.sizes.includes(size))))
+  
+      if (filters.filterSize.length > 0) {
+        filteredProducts = filteredProducts.filter(
+          (product) =>filters.filterSize.some((size) => product.sizes.includes(+size))
+        );
       }
-      if(filters.minPrice >=0 || filters.maxPrice >0){
-        setProducts(response.data.products.filter((product) => product.price >= filters.minPrice && product.price <= filters.maxPrice))
+  
+      if (filters.minPrice >= 0 || filters.maxPrice > 0) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.price >= filters.minPrice && product.price <= filters.maxPrice
+        );
       }
-        
-      
+      setProducts(filteredProducts);
+      setResults(filteredProducts.length);
+
     } catch (error) {
       console.log(error);
     }
@@ -109,7 +128,7 @@ console.log(response.data.products);
         <h4>{results} Products</h4>
         <div className="filters">
           <h3>filters</h3>
-          <Filters setApplyFilter={setFilters} initialCategory={urlCategory}/>
+          <Filters setApplyFilter={setFilters} initialCategory={urlCategory} />
 
         </div>
       </div>
@@ -120,7 +139,9 @@ console.log(response.data.products);
         ))}
       </div>
 
-      {renderPagination()}
+      {
+        (products.length > 8) ? renderPagination() : null
+      }
     </div>
   );
 }

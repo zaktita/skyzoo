@@ -12,11 +12,11 @@
     justify-content: space-between;
 }
 
-.cartitems-content button{
+/* .cartitems-content button{
     background-color: rgba(0, 0, 0, 0.098);
     background-color: var(--secondcolor);
     padding: 5px 10px;
-}
+} */
 
 .cartitems-content span{
     margin: 0 10px;

@@ -20,9 +20,9 @@ useEffect(() => {
         <h3>{product.price}</h3>
         </div>
         <div>
-        <button>+</button>
-        <span>1</span>
-        <button>-</button>
+        <button>Remove</button>
+        {/* <span>1</span>
+        <button>-</button> */}
         </div>
       </div>
     </div>

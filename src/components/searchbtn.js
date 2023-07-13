@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import './searchbtn.css'
 import { CiSearch } from 'react-icons/ci';
 import { AiOutlineClose } from 'react-icons/ai';
-import productsData from "./products.json";
+// import productsData from "./products.json";
 import Card from './card';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const SearchModal = () => {
     const [products, setProducts] = useState([]);
-    useEffect(() => {
-        setProducts(productsData);
-    }, []);
+    const [searchKeyWord, setsearchKeyWord] = useState('diam')
+    // useEffect(() => {
+    //     setProducts(productsData);
+    // }, []);
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleModal = () => {
@@ -29,7 +32,31 @@ const SearchModal = () => {
         return () => {
             document.removeEventListener('keydown', handleEscapeKey);
         };
+
+
     }, []);
+
+
+    const handleSearch = (e) => {
+        setsearchKeyWord(e.target.value)
+        console.log(searchKeyWord);
+    }
+
+    const handleSubmit = async (e) => {
+        console.log(searchKeyWord);
+        // e.preventDefault()
+        try {
+            const response = await axios.get(`http://127.0.0.1:8000/api/search/${searchKeyWord}`);
+            setProducts(response.data.products)
+            console.log(response.data.products);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        handleSubmit()
+    }, [])
 
     return (
         <>
@@ -47,7 +74,8 @@ const SearchModal = () => {
                         <div className='search-bar'>
                             <div className='input-wrapper'>
                                 <CiSearch />
-                                <input type="search" name="search" id="search" placeholder='search' />
+                                <input type="search" name="search" id="search" placeholder='search' value={searchKeyWord} onChange={handleSearch} />
+                                <button onClick={handleSubmit}>submit</button>
                             </div>
                             <button
                                 data-dismiss="modal"
@@ -60,20 +88,30 @@ const SearchModal = () => {
                         <div className="search-results">
                             <div className='suggestions'>
                                 <h3>Trending searches</h3>
-                                <p><CiSearch />sneakers</p>
-                                <p><CiSearch />heals</p>
-                                <p><CiSearch />bascket</p>
+                                <p onClick={() => setsearchKeyWord('Product')}>
+                                    <CiSearch />
+                                    Product
+                                </p>
+                                <p onClick={() => setsearchKeyWord('heals')}>
+                                    <CiSearch />
+                                    heals
+                                </p>
+                                <p onClick={() => setsearchKeyWord('bascket')}>
+                                    <CiSearch />
+                                    bascket
+                                </p>
+
 
                             </div>
                             <div className='results'>
                                 <h3>Results</h3>
                                 <div className='results-container'>
 
-                                    {products.slice(0, 4).map((product) => (
-                                        <Card key={product.id} product={product} designclass='search-card' />
+                                    {products.slice(0, 4).map((product, index) => (
+                                        <Card key={index} product={product} designclass='search-card' />
                                     ))}
                                 </div>
-                                <h3>See more</h3>
+                                <a href={`/search/${searchKeyWord}`}>See more</a>
                             </div>
                         </div>
                     </div>

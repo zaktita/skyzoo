@@ -101,23 +101,29 @@ function Filters(props) {
             minPrice: minPrice,
             maxPrice: maxPrice,
         });
-        toggleModal()
-        setFilterCategory()
         setFilterColor([])
         setFilterSize([])
-        setMinPrice()
-        setMaxPrice()
+        setMinPrice(0)
+        setMaxPrice(10000)
+        toggleModal()
         console.log('btn was clicked');
     };
 
 
+
+
     const handleClearAll = () => {
-        setFilterCategory()
         setFilterColor([])
         setFilterSize([])
         setMinPrice(0)
         setMaxPrice(10000)
     }
+
+    useEffect(()=>{
+        console.log(filterSize);
+    },[filterSize])
+
+
     return (
         <div>
             <button data-toggle="cartmodal" data-target="cartmodal" onClick={toggleModal}>

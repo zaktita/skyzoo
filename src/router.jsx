@@ -4,6 +4,7 @@ import App from "./App";
 import Home from "./pages/home";
 import Product from "./pages/productpage/product";
 import Categorie from "./pages/categorie";
+import SearchResaults from "./pages/searchResaults";
 
 function MainRouter() {
   return (
@@ -14,6 +15,7 @@ function MainRouter() {
           <Route path="/Home" element={<Home />} />
           <Route path="/product/:product_id" element={<Product />} />
           <Route path="/Category/:urlCategory" element={<Categorie />} />
+          <Route path="/search/:searchKeyWord" element={<SearchResaults />} />
         </Route>
       </Routes>
     </Router>
