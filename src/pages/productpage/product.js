@@ -1,33 +1,37 @@
 import React, { useEffect, useState } from 'react'
-import ImageSlider from './imageSlider'
 import './product.css'
-import productsData from "../../components/products.json";
 import Card from '../../components/card';
 import Addtocart from '../../components/addtocart';
 import Accordion from '../../components/accordion';
 import Carousel from './mobileSlider';
-import images1 from '../../assets/jimmy/ANTIBESFQYF_081101_ANGLE.jpg'
-import images2 from '../../assets/jimmy/ANTIBESFQYF_081101_SIDE.jpg'
-import images3 from '../../assets/jimmy/ANTIBESFQYF_081101_MODEL_vg63.jpg'
 import axios from 'axios';
 import { useParams } from 'react-router';
+import { useShoppingCart } from '../../context/ShoppingCartContext';
 
 
 
 function Product() {
-const [productImages,setproductImages] = useState([]);
-const [productTile,setProductTile] = useState();
-const [productDescription,setProductDescription] = useState();
-const [productPrice,setProductPrice] = useState();
-const [productSize,setProductSize] = useState([]);
-const [productColors,setProductColors] = useState([]);
-const [productCategory,setProductCategory] = useState();
-const [selectedProductSize,setSelectedProductSize] = useState('');
-const [selectedProductColor,setSelectedProductColor] = useState('');
+  const isMobile = window.innerWidth <= 500;
+  const [quantity, setQuantity] = useState(1);
 
-const [similarProducts,setSimilarProducts] = useState([]);
-const {product_id}= useParams()
+  const [productImages, setproductImages] = useState([]);
+  const [productTile, setProductTile] = useState();
+  const [productDescription, setProductDescription] = useState();
+  const [productPrice, setProductPrice] = useState();
+  const [productSize, setProductSize] = useState([]);
+  const [productColors, setProductColors] = useState([]);
 
+  const [productCategory, setProductCategory] = useState();
+  const [selectedProductSize, setSelectedProductSize] = useState(productSize[0]);
+  const [selectedProductColor, setSelectedProductColor] = useState(productColors[0]);
+
+  const [similarProducts, setSimilarProducts] = useState([]);
+  const { product_id } = useParams()
+
+const [index,setIndex] = useState(0)
+const [error,setError] = useState("")
+  const { cartItems,
+    updatecartItems } = useShoppingCart();
   useEffect(() => {
     fetchProductFromServer();
   }, []);
@@ -47,29 +51,20 @@ const {product_id}= useParams()
     }
   };
 
-  const isMobile = window.innerWidth <= 500;
-  const images = [images1,images2,images3]
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    setProducts(productsData);
-
-  }, []);
 
 
-    const [quantity, setQuantity] = useState(1);
-  
-    const handleIncrement = () => {
-      setQuantity(quantity + 1);
-    };
-  
-    const handleDecrement = () => {
-      if (quantity > 1) {
-        setQuantity(quantity - 1);
-      }
-    };
+  const handleIncrement = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
 
-  const handleColorChange = (e,index,color) => {
+  const handleColorChange = (e, index, color) => {
     const selectedColor = productColors[index];
     const labels = document.querySelectorAll('.color-box label');
     labels.forEach(label => {
@@ -78,81 +73,118 @@ const {product_id}= useParams()
     e.currentTarget.nextElementSibling.style.boxShadow = `0 0 0 2px white , 0 0 0 3px ${color}`
     setSelectedProductColor(selectedColor);
   };
+
+
+  const handleSizeChange = (e) => {
+    setSelectedProductSize(e.target.value)
+    console.log(selectedProductSize);
+  }
+
+  const handleAddedProduct = () => {
+
+    if (!selectedProductSize || !selectedProductColor) {
+      setError("Please select a size and color");
+      return;
+    }
+    setError(null)
+    const product = {
+      id: index,
+      title: productTile,
+      description: productDescription,
+      price: productPrice,
+      category_id: productCategory,
+      size: selectedProductSize,
+      color: selectedProductColor,
+      image: productImages[0],
+      quantity : quantity,
+      totalPrice : productPrice * quantity,
+    }
+    if (!cartItems.length > 1) {
+
+      updatecartItems([product])
+    } else { updatecartItems([...cartItems, product]) }
+    console.log(product.id);
+    setIndex(product.id + 1)
   
+  }
 
-const handleSizeChange = (e)=>{
-  setSelectedProductSize(e.target.value)
-  console.log(selectedProductSize);
-}
-
-
+  useEffect(() => {
+    console.log(cartItems.totalPrice);
+  }
+    , [cartItems])
 
 
   return (
     <div className='col-md product-page'>
       <div className='product'>
-      <div className="left">
-      {isMobile ? (
-        <Carousel images={images} />
-      ) : (
-        productImages.map((image, index) => (
-          <img 
-          key={index} 
-          src={`http://localhost:8000/storage/${image.filename}`} 
-          alt={`Product Image ${index + 1}`}
-          style={{ width: '100%' }}
-          />
-        ))
-        
-      )
-      }
-    </div>
+        <div className="left">
+          {isMobile ? (
+            <Carousel images={productImages} />
+          ) : (
+            productImages.map((image, index) => (
+              <img
+                key={index}
+                src={`http://localhost:8000/storage/${image.filename}`}
+                alt={`Product Image ${index + 1}`}
+                style={{ width: '100%' }}
+              />
+            ))
+
+          )
+          }
+        </div>
         <div className='right'>
           <h1>{productTile}</h1>
           <h3>{productDescription}</h3>
           <h2>{productPrice} dh</h2>
+          {error ? <h4 style={{ color: 'red' }}>{error}</h4> : null}
 
-
-          <select name="sizes" id="sizes" onChange={(e)=>handleSizeChange(e)}>
-       { productSize.sort().map((size, index) => (
-            <option key={index} value={size}>{size}</option>
-        ))
-        }
+          <select name="sizes" id="sizes" required onChange={(e) => handleSizeChange(e)}>
+            {productSize.sort().map((size, index) => (
+              <option key={index}   value={size}>{size}</option>
+            ))
+            }
           </select>
 
-        
 
-<div style={{ display: 'flex', gap: '10px' }}>
-  {productColors.map((color, index) => (
-    <div
-      key={index}
-      className='color-box'
-      style={{ backgroundColor: color, width: "20px", position: 'relative' }}
-    >
-      <input
-        type="radio"
-        name="color"
-        id={index}
-        style={{ visibility: 'hidden' }}
-        onClick={(e) => {
-          handleColorChange(e,index,color);
-        }}
-      />
-      <label
-        htmlFor={index}
-        style={{ width: '100%', height: '100%', position: 'absolute', right: '0', top: '0' }}
-      ></label>
-    </div>
-  ))}
-</div>
-<div  style={{ display: 'flex' , width:'100px' , justifyContent:'space-between' , border:'1px solid black'}}>
 
-<button onClick={handleDecrement} style={{padding:'5px 10px' ,borderRight:'1px solid black'}}>-</button>
-      <span style={{padding:'5px 10px' , }}>{quantity}</span>
-      <button onClick={handleIncrement} style={{padding:'5px 10px',borderLeft:'1px solid black'}}>+</button>
-</div>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            {productColors.map((color, index) => (
+              <div
+                key={index}
+                className='color-box'
+                style={{ backgroundColor: color, width: "20px", position: 'relative' }}
+              >
+                <input
+                  type="radio"
+                  name="color"
+                  required
+                  id={index}
+                  style={{ visibility: 'hidden' }}
+                  onClick={(e) => {
+                    handleColorChange(e, index, color);
+                  }}
 
-          <Addtocart btnClass='mainBtn' />
+/>
+                <label
+                  htmlFor={index}
+                  style={{ width: '100%', height: '100%', position: 'absolute', right: '0', top: '0' }}
+                ></label>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', width: '100px', justifyContent: 'space-between', border: '1px solid black' }}>
+
+            <button onClick={handleDecrement} style={{ padding: '5px 10px', borderRight: '1px solid black' }}>-</button>
+            <span style={{ padding: '5px 10px', }}>{quantity}</span>
+            <button onClick={handleIncrement} style={{ padding: '5px 10px', borderLeft: '1px solid black' }}>+</button>
+          </div>
+
+          <Addtocart btnClass='mainBtn' click={handleAddedProduct} />
+
+
+
           <div>
             <Accordion title="Details, care & fit">
               <p>
@@ -186,7 +218,7 @@ const handleSizeChange = (e)=>{
       </div>
       <h3>Vous pouvez aimer</h3>
       <div className='you-may-like'>
-        {similarProducts.map((product,index) => (
+        {similarProducts.map((product, index) => (
           <Card key={product.product_id} product={product} designclass='home-card' />
         ))}
       </div>
@@ -196,3 +228,4 @@ const handleSizeChange = (e)=>{
 }
 
 export default Product
+

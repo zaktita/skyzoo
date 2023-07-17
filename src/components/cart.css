@@ -20,6 +20,7 @@
     z-index: -1;
     transform: translateY(1rem) translateZ(0);
     transition: all 0.3s ease;
+    overflow-y: scroll;
 }
 
 .cartmodal.active {
@@ -30,7 +31,7 @@
     background: white;
     visibility: visible;
     width: 350px;
-    height: 100vh;
+    /* height: 100vh; */
   }
 
 
@@ -47,8 +48,15 @@
 
   .cartheader h2 span{
     color: var(--grey);
-    font-size: 1rem;
+    font-size: .7rem;
     font-weight: 400;
+  }
+
+  .cartcontent{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
   }
 
   .cart-body{
@@ -65,14 +73,14 @@
   }
 
   .cart-footer{
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
     right: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
     padding: 0 10px;
   }
   .cart-footer .cart-total{

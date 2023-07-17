@@ -29,21 +29,56 @@ const Carousel = ({ images }) => {
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        cursor:'pointer'
-        // height: '400px',
+        position: 'relative',
+        width: '100%',
+        overflow: 'hidden'
       }}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
     >
-      <img
-        src={images[currentImage]}
-        alt="carousel-image"
-        style={{ maxWidth: '100%' }}
-      />
+      <div
+        style={{
+          display: 'flex',
+          transform: `translateX(-${currentImage * 100}%)`,
+          transition: 'transform 0.5s ease-out',
+          touchAction: 'pan-y'
+        }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {images.map((image, index) => (
+          <img
+            key={index}
+            src={`http://localhost:8000/storage/${image.filename}`}
+            alt="carousel-image"
+            style={{
+              flex: '0 0 100%',
+              maxWidth: '100%'
+            }}
+          />
+        ))}
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '10px',
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%'
+        }}
+      >
+        {images.map((_, index) => (
+          <div
+            key={index}
+            style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: index === currentImage ? '#000' : '#888',
+              margin: '0 4px'
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 };

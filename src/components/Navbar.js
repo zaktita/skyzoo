@@ -4,7 +4,6 @@ import { AiOutlineClose} from 'react-icons/ai';
 import logo from '../assets/logo.webp'
 import './Navbar.css'
 import Menu_icon from './menu_icon';
-// import Search from './search';
 import SearchModal from './searchbtn';
 import Cart from './cart';
 import { Link } from 'react-router-dom';

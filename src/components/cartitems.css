@@ -12,12 +12,16 @@
     justify-content: space-between;
 }
 
-/* .cartitems-content button{
-    background-color: rgba(0, 0, 0, 0.098);
-    background-color: var(--secondcolor);
-    padding: 5px 10px;
-} */
 
 .cartitems-content span{
     margin: 0 10px;
+}
+.cartitems-content-right{
+    display: flex;
+    justify-content: space-between;
+}
+.cartitems-content-right h4 span{
+    margin: 0 !important;
+    font-weight: 600;
+    color: black;
 }

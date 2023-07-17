@@ -5,7 +5,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 function Button(props) {
   return (
     <div>
-        <button className={props.btnClass}>Découvrir
+        <button className={props.btnClass} onClick={props.click}>Découvrir
             <AiOutlineArrowRight className='icon'/>
         </button>
     </div>

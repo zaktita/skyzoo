@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import './cartitems.css'
-function CartItems(props) {
-  const [imgSrc, setImgSrc] = useState(null);
-  const { product , designclass} = props;
+import { useShoppingCart } from '../context/ShoppingCartContext';
 
-useEffect(() => {
-    async function importImage() {
-      const module = await import(`../assets/jimmy/${product.img}`);
-      setImgSrc(module.default);
-    }
-    importImage();
-  }, [product.img]);
+
+function CartItems(props) {
+
+  const { product , designclass , id , quantity} = props;
+  const { removeFromCart } = useShoppingCart();
+
+  const removeProduct = () => {
+    const id = product.id;
+    removeFromCart(id);
+  }
   return (
     <div className='cartitems'>
-        <img src={imgSrc} alt={product.title} />
+        <img src={`http://localhost:8000/storage/${product.image.filename}`}
+        alt={product.title} />
       <div className='cartitems-content'>
         <div>
         <h2>{product.title}</h2>
-        <h3>{product.price}</h3>
+        <h4><span>color : </span>{product.color}</h4>
+        <h4><span>size : </span>{product.size}</h4>
+        <h4><span>quanity : </span>{product.quantity}</h4>
+
+
         </div>
-        <div>
-        <button>Remove</button>
-        {/* <span>1</span>
-        <button>-</button> */}
+        <div className='cartitems-content-right'>
+        <h3>{product.totalPrice}</h3>
+        <button onClick={removeProduct}>Remove</button>
         </div>
       </div>
     </div>

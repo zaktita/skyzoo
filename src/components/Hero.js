@@ -3,6 +3,10 @@ import './hero.css'
 import Button from './button'
 import CategorieCard from './categorieCard'
 function Hero() {
+
+  const setclick = () => {
+    console.log('test 67')
+  };
   return (
 
 
@@ -11,7 +15,7 @@ function Hero() {
       <div className='hero-container'>
         <h6>SKYZO SHOES</h6>
         <h1>Élevez votre style avec nos chaussures</h1>
-        <Button btnClass='mainBtn'/>
+        <Button btnClass='mainBtn'  />
       </div>
     </div>
 
