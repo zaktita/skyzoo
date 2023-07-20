@@ -1,0 +1,132 @@
+.empty-bag-container {
+    flex-direction: column;
+    display: grid;
+    place-items: center;
+    height: 100px;
+}
+  /* Styles for the bag-summary-container */
+  .bag-summary-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .btn-backToShop {
+background-color: var(--maincolor);
+padding:10px 25px ;
+color: white !important
+}
+.btn-backToShop:visited {
+        color: white !important
+  }
+.btn-backToShop:hover {
+    background-color: var(--secondcolor);
+        color: white !important
+  }
+
+  /* Styles for the bag-items-container */
+  .bag-items-container {
+    flex: 2;
+  }
+  
+  /* Styles for the bag-summary-container-right */
+  .bag-summary-container-right {
+      display: flex;
+      flex: 1;
+    flex-direction: column;
+    border: 1px solid var(--maincolor);
+    border-radius: 4px;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    height: fit-content;
+    gap: 1rem;
+  }
+  
+  /* Styles for the header of the right container */
+  .bag-summary-container-right-header  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .bag-summary-container-right-header :first-child {
+    font-weight: 700;
+    text-transform: capitalize;
+    font-size: .9rem;
+  }
+  .bag-summary-container-right-header :nth-child(2) {
+    font-weight: 400;
+    font-size: .8rem;
+    color: grey;
+  }
+
+.bag-summary-container-right-body{
+    border-bottom: var(--maincolor) 1px solid;
+    border-top: var(--maincolor) 1px solid;
+    padding: 1rem 0;
+}
+  /* Styles for the footer of the right container */
+  .bag-summary-container-right-footer {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Styles for the Order Summary header */
+  .bag-summary-container-right h2 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  /* Styles for the Order Summary subtotal and shipping */
+  .bag-summary-container-right h3 {
+    font-size: 16px;
+    margin: 0;
+  }
+  
+  /* Styles for the Order Summary total */
+  .bag-summary-container-right h3 span {
+    font-weight: bold;
+  }
+  
+  /* Styles for the PayPal and Secure Checkout buttons */
+  .bag-summary-container-right button {
+    border: var(--maincolor) 1px solid;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    width: 100%;
+
+  }
+  .bag-summary-container-right button img{
+    width: 30%;
+  }
+  .sub span{
+    font-size: .8rem !important
+  }
+  .btn-checkout{
+    background-color: var(--maincolor);
+    color: white;
+  }
+  .btn-checkout:hover{
+    background-color: var(--secondcolor);
+    color: white;
+  }
+
+  /* Responsive styles */
+  @media screen and (max-width: 768px) {
+    .col-md {
+      padding: 10px;
+    }
+  
+    .bag-summary-container {
+      flex-direction: column;
+    }
+  
+    .bag-summary-container-right {
+      margin-top: 20px;
+    }
+  }
+  

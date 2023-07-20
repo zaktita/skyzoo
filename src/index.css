@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Mulish:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Mulish:wght@300;400;600;700&display=swap');
 
 :root{
   --maincolor: #BAAE92;
@@ -45,6 +45,10 @@ p,a{
   font-size: .9rem;
   color: var(--grey);
   font-weight: 400;
+}
+
+a:visited{
+  /* color: white; */
 }
 
 

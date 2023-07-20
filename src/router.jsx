@@ -12,6 +12,7 @@ import Categorie from "./pages/categorie";
 import SearchResaults from "./pages/searchResaults";
 import ShoppingCartProvider from "./context/ShoppingCartContext";
 import Bag from "./pages/productpage/bag";
+import Checkout from "./pages/productpage/checkout";
 
 function MainRouter() {
   return (
@@ -26,6 +27,7 @@ function MainRouter() {
             <Route path="/search/:searchKeyWord" element={<SearchResaults />} />
             <Route path="/Bag" element={<Bag />} />
           </Route>
+            <Route path="/Checkout" element={<Checkout />} />
         </Routes>
       </Router>
     </ShoppingCartProvider>

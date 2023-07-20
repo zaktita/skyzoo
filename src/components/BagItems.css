@@ -1,0 +1,76 @@
+/* Styles for the container */
+.bagitems-cointainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--maincolor);
+    border-radius: 4px;
+
+  }
+  
+  /* Styles for the product image */
+  .bagitems-cointainer img {
+    max-width: 200px;
+    height: auto;
+  }
+  
+  /* Styles for the bag items container */
+  .bag-items {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 2rem;
+  }
+  
+  /* Styles for the bag item info */
+
+.bag-item-title{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1rem;
+}
+
+  
+  /* Span styles within color, size, and quantity */
+  .bag-items h4 span {
+    font-weight: 600;
+    color: black;
+
+  }
+  .bag-items h4  {
+    margin: 5px 0;
+  }
+
+
+  .bag-item-price{
+    font-weight: 300;
+    font-size: .9rem;
+  }
+  /* Styles for the bag item remove button */
+  .bag-item-remove button {
+    margin-top: 2rem;
+    cursor: pointer;
+  }
+  
+  /* Styles for the 'X' in the remove button */
+  .bag-item-remove button span {
+    margin-right: 8px;
+  }
+  
+  /* Responsive styles */
+  @media screen and (max-width: 768px) {
+    .bagitems-cointainer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .bag-items {
+      flex-direction: column;
+    }
+  
+    .bagitems-cointainer img {
+      max-width: 100%;
+    }
+  }
+  

@@ -72,7 +72,10 @@ function Cart() {
                             </div>
                             <button data-dismiss="cartmodal"
                                 onClick={toggleModal}>back to shopping</button>
-                            <button>Checkout</button>
+                                  <a href="/bag">
+                            <button >
+                                Checkout</button>
+                                    </a>  
                         </div>
                     </div>
 

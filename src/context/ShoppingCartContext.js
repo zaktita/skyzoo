@@ -67,6 +67,12 @@ const ShoppingCartProvider = ({ children }) => {
     setCartItems((currItems) => currItems.filter((item) => item.id !== id));
   };
 
+  const calculateTotal = (cartItems) => {
+    return cartItems.reduce((accumulator, product) => {
+        return accumulator + product.totalPrice;
+    }, 0);
+};
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -77,6 +83,7 @@ const ShoppingCartProvider = ({ children }) => {
         cartQuantity,
         cartItems,
         updatecartItems,
+        calculateTotal,
       }}
     >
       {children}
