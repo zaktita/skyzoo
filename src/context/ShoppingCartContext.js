@@ -3,6 +3,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 
 const ShoppingCartContext = createContext({});
+
+
 const initialCartItems = localStorage.getItem("shopping-cart")
   ? JSON.parse(localStorage.getItem("shopping-cart"))
   : [];
@@ -33,52 +35,52 @@ const ShoppingCartProvider = ({ children }) => {
   };
 
 
-  const increaseCartQuantity = (id) => {
-    setCartItems((currItems) => {
-      if (currItems.find((item) => item.id === id) == null) {
-        return [...currItems, { id, quantity: 1 }];
-      } else {
-        return currItems.map((item) => {
-          if (item.id === id) {
-            return { ...item, quantity: item.quantity + 1 };
-          } else {
-            return item;
-          }
-        });
-      }
-    });
-  };
-  const decreaseCartQuantity = (id) => {
-    setCartItems((currItems) => {
-      if (currItems.find((item) => item.id === id)?.quantity === 1) {
-        return currItems.filter((item) => item.id !== id);
-      } else {
-        return currItems.map((item) => {
-          if (item.id === id) {
-            return { ...item, quantity: item.quantity - 1 };
-          } else {
-            return item;
-          }
-        });
-      }
-    });
-  };
+  // const increaseCartQuantity = (id) => {
+  //   setCartItems((currItems) => {
+  //     if (currItems.find((item) => item.id === id) == null) {
+  //       return [...currItems, { id, quantity: 1 }];
+  //     } else {
+  //       return currItems.map((item) => {
+  //         if (item.id === id) {
+  //           return { ...item, quantity: item.quantity + 1 };
+  //         } else {
+  //           return item;
+  //         }
+  //       });
+  //     }
+  //   });
+  // };
+  // const decreaseCartQuantity = (id) => {
+  //   setCartItems((currItems) => {
+  //     if (currItems.find((item) => item.id === id)?.quantity === 1) {
+  //       return currItems.filter((item) => item.id !== id);
+  //     } else {
+  //       return currItems.map((item) => {
+  //         if (item.id === id) {
+  //           return { ...item, quantity: item.quantity - 1 };
+  //         } else {
+  //           return item;
+  //         }
+  //       });
+  //     }
+  //   });
+  // };
   const removeFromCart = (id) => {
     setCartItems((currItems) => currItems.filter((item) => item.id !== id));
   };
 
   const calculateTotal = (cartItems) => {
     return cartItems.reduce((accumulator, product) => {
-        return accumulator + product.totalPrice;
+      return accumulator + product.totalPrice;
     }, 0);
-};
+  };
 
   return (
     <ShoppingCartContext.Provider
       value={{
         getItemQuantity,
-        increaseCartQuantity,
-        decreaseCartQuantity,
+        // increaseCartQuantity,
+        // decreaseCartQuantity,
         removeFromCart,
         cartQuantity,
         cartItems,
