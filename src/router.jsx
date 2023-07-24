@@ -13,6 +13,7 @@ import SearchResaults from "./pages/searchResaults";
 import ShoppingCartProvider from "./context/ShoppingCartContext";
 import Bag from "./pages/productpage/bag";
 import Checkout from "./pages/productpage/checkout";
+import ThankYouPage from "./pages/productpage/ThankYouPage";
 
 function MainRouter() {
   return (
@@ -28,6 +29,7 @@ function MainRouter() {
             <Route path="/Bag" element={<Bag />} />
           </Route>
             <Route path="/Checkout" element={<Checkout />} />
+            <Route path="/ThankYouPage" element={<ThankYouPage />} />
         </Routes>
       </Router>
     </ShoppingCartProvider>

@@ -123,10 +123,66 @@ border-radius: 10px;
 
 
 .checkout-footer span.active::after{
-background-color: var(--maincolor);
+  background-color: var(--maincolor);
 }
 
 .checkout-steps label{
   margin-bottom: .4rem;
   display: block;
 }
+
+.error-message{
+  color: red;
+  margin: .5rem 0;
+}
+
+.errorClass::placeholder{
+  /* border: 1px solid red !important; */
+color: red;
+}
+.errorClass{
+  border: 1px solid red !important;
+}
+.errorClass:focus{
+  outline: 1px solid var(--maincolor);
+  border: none !important;
+}
+
+
+  .checkout-steps .billing-container input {
+    width: 20px;
+    padding: 0px;
+    margin-bottom: 0;
+    border: 1px solid var(--maincolor);
+    border-radius: .4rem;
+    height: 20px;
+
+  }
+
+  .billing-container div{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .checkout-steps .billing-container  label , .ShippingIsBilling label{
+    margin-bottom: 0rem;
+  }
+
+  .billing-container form .billig-input-container{
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+  }
+
+  .ShippingIsBilling{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .ShippingIsBilling input{
+    width: auto;
+    margin: 0;
+  }
