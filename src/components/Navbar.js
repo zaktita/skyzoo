@@ -42,7 +42,7 @@ const Navbar = () => {
       <nav className="navbar_menu">
       <ul>
   <li><Link to="/home">Home</Link></li>
-  <li><a href="/category/Women's Sneakers">Sneakers</a></li>
+  <li><a href="/category/Sneakers">Sneakers</a></li>
   <li><a href="/category/Heals">Heals</a></li>
   <li><a href="/category/shoes">shoes</a></li>
 

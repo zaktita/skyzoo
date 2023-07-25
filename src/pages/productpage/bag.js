@@ -57,7 +57,7 @@ function Bag() {
                                 <button> <img src={paypalLogo} alt="" /></button>
                             </a>
                             <a href="/Checkout" >
-                            <button className='btn-checkout'>  secure checkout</button>
+                            <button className='btn-checkout'>secure checkout</button>
                             </a>
                     </div>
                 </div>

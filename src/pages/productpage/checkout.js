@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import './checkout.css';
 import logo from '../../assets/logo.webp';
 import { useShoppingCart } from '../../context/ShoppingCartContext';
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 
 function Checkout() {
     const { cartItems, calculateTotal } = useShoppingCart();
     const [step, setStep] = useState(3);
-    // const [errorClass, setErrorClass] = useState('');
-   const Navigate = useNavigate()
+    // const [form] = Form.useForm();
+
+
+    const Navigate = useNavigate()
     const initialFormData = {
         firstName: '',
         lastName: '',
@@ -90,10 +93,52 @@ function Checkout() {
         setStep(step - 1);
     };
 
-    const handleSubmit = (event) => {
+    console.log(cartItems);
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        Navigate ('/ThankYouPage');
+        const DataToSubmit = new FormData();
+        console.log("form submit working");
+
+        try {
+            //   await form.validateFields();
+
+            DataToSubmit.append("first_name", formData.firstName);
+            DataToSubmit.append("last_name", formData.lastName);
+            DataToSubmit.append("phone", formData.phone);
+            DataToSubmit.append("email", formData.email);
+            DataToSubmit.append("adresse", formData.address);
+            DataToSubmit.append("city", formData.city);
+            DataToSubmit.append("country", formData.country);
+            DataToSubmit.append("zipcode", formData.zip);
+            DataToSubmit.append("total_price", calculateTotal(cartItems));
+            DataToSubmit.append("status", 'pending');
+            DataToSubmit.append("items", JSON.stringify(cartItems));
+
+            const config = {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Accept: "application/json",
+                },
+            };
+
+            const response = await axios.post(
+                "http://127.0.0.1:8000/api/orders",
+                DataToSubmit,
+                { headers: config.headers }
+            );
+            console.log(response.data);
+            // message.success("order placed successfully");
+            // form.resetFields(); // Clear form fields
+            // Navigate('/ThankYouPage');
+
+        } catch (error) {
+            console.log(error);
+            //   message.error("Error placing order");
+        }
     };
+
+
 
     const handleInputChange = (event) => {
         const { id, value } = event.target;
@@ -214,10 +259,10 @@ function Checkout() {
 
                                 </div>
                             </div>
-                                <div className='ShippingIsBilling'>
-                                    <input type="checkbox" name="billingAdresse" id="billingAdresse" />
-                                    <label htmlFor="billingAdresse">Billing adresse is the same as shipping adresse </label>
-                                </div>
+                            <div className='ShippingIsBilling'>
+                                <input type="checkbox" name="billingAdresse" id="billingAdresse" />
+                                <label htmlFor="billingAdresse">Billing adresse is the same as shipping adresse </label>
+                            </div>
                             <button className="backbtn" onClick={handlePrevStep}>
                                 Back
                             </button>

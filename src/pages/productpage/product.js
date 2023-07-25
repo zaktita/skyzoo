@@ -88,16 +88,17 @@ const [error,setError] = useState("")
     }
     setError(null)
     const product = {
-      id: index,
+      item_id: index,
       title: productTile,
       description: productDescription,
-      price: productPrice,
+      price: +productPrice,
       category_id: productCategory,
       size: selectedProductSize,
       color: selectedProductColor,
       image: productImages[0],
       quantity : quantity,
       totalPrice : productPrice * quantity,
+      product_id : +product_id,
     }
     if (!cartItems.length > 1) {
 
