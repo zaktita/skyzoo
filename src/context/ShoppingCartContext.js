@@ -12,8 +12,6 @@ const initialCartItems = localStorage.getItem("shopping-cart")
 const ShoppingCartProvider = ({ children }) => {
 
   const [cartItems, setCartItems] = useState(initialCartItems);
-  // const [selectedProduct, setSelectedProduct] = useState([])
-  // const [quantity, setQuantity] = useState(1);
 
 
   useEffect(() => {
@@ -35,36 +33,7 @@ const ShoppingCartProvider = ({ children }) => {
   };
 
 
-  // const increaseCartQuantity = (id) => {
-  //   setCartItems((currItems) => {
-  //     if (currItems.find((item) => item.id === id) == null) {
-  //       return [...currItems, { id, quantity: 1 }];
-  //     } else {
-  //       return currItems.map((item) => {
-  //         if (item.id === id) {
-  //           return { ...item, quantity: item.quantity + 1 };
-  //         } else {
-  //           return item;
-  //         }
-  //       });
-  //     }
-  //   });
-  // };
-  // const decreaseCartQuantity = (id) => {
-  //   setCartItems((currItems) => {
-  //     if (currItems.find((item) => item.id === id)?.quantity === 1) {
-  //       return currItems.filter((item) => item.id !== id);
-  //     } else {
-  //       return currItems.map((item) => {
-  //         if (item.id === id) {
-  //           return { ...item, quantity: item.quantity - 1 };
-  //         } else {
-  //           return item;
-  //         }
-  //       });
-  //     }
-  //   });
-  // };
+
   const removeFromCart = (id) => {
     setCartItems((currItems) => currItems.filter((item) => item.id !== id));
   };
@@ -79,8 +48,7 @@ const ShoppingCartProvider = ({ children }) => {
     <ShoppingCartContext.Provider
       value={{
         getItemQuantity,
-        // increaseCartQuantity,
-        // decreaseCartQuantity,
+
         removeFromCart,
         cartQuantity,
         cartItems,

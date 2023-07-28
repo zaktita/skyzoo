@@ -18,7 +18,7 @@ function Featured() {
   }, []);
   const fetchProductFromServer = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/category/Women's Sneakers");
+      const response = await axios.get("http://127.0.0.1:8000/api/category/New Arrivals ");
       setproducts(response.data.products);
       setCategoryName(response.data.category.category_name);
       setCategoryDescription(response.data.category.category_description);
@@ -31,7 +31,7 @@ function Featured() {
 
   return (
     <div className='col-md featured'>
-      <Menu />
+      <h2>New Arrivel</h2>
       <div className='car-container'>
         {products.slice(0,8).map((product) => (
           <Card key={product.product_id} product={product} designclass='home-card' />

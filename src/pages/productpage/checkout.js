@@ -8,7 +8,7 @@ import axios from 'axios';
 
 function Checkout() {
     const { cartItems, calculateTotal } = useShoppingCart();
-    const [step, setStep] = useState(3);
+    const [step, setStep] = useState(1);
     // const [form] = Form.useForm();
 
 
@@ -114,7 +114,7 @@ function Checkout() {
             DataToSubmit.append("total_price", calculateTotal(cartItems));
             DataToSubmit.append("status", 'pending');
             DataToSubmit.append("items", JSON.stringify(cartItems));
-
+            console.log(DataToSubmit);
             const config = {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -128,10 +128,8 @@ function Checkout() {
                 { headers: config.headers }
             );
             console.log(response.data);
-            // message.success("order placed successfully");
-            // form.resetFields(); // Clear form fields
-            // Navigate('/ThankYouPage');
-
+            Navigate('/ThankYouPage');
+            localStorage.clear();
         } catch (error) {
             console.log(error);
             //   message.error("Error placing order");
@@ -324,3 +322,12 @@ function Checkout() {
 }
 
 export default Checkout;
+
+
+
+
+
+
+
+
+
