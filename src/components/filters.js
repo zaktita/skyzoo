@@ -29,7 +29,7 @@ function Filters(props) {
     // Fetch product filters from the server
     const fetchProductFilters = async () => {
         try {
-            const response = await axios.get("http://127.0.0.1:8000/api/filters");
+            const response = await axios.get("http://127.0.0.1:8000/api/variations");
             setProductSize(response.data.sizes);
             setProductColors(response.data.colors);
             setCategories(response.data.category);

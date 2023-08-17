@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './checkout.css';
 import logo from '../../assets/logo.webp';
 import { useShoppingCart } from '../../context/ShoppingCartContext';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import paypal from '../../assets/paypal.svg'
+import cash from '../../assets/cash.svg'
+import options from '../../assets/options.svg'
+
 
 
 function Checkout() {
     const { cartItems, calculateTotal } = useShoppingCart();
-    const [step, setStep] = useState(1);
-    // const [form] = Form.useForm();
+    const [step, setStep] = useState(3);
+    const [payementMethod, setpayementMethod] = useState('');
 
 
     const Navigate = useNavigate()
@@ -257,10 +261,10 @@ function Checkout() {
 
                                 </div>
                             </div>
-                            <div className='ShippingIsBilling'>
+                            {/* <div className='ShippingIsBilling'>
                                 <input type="checkbox" name="billingAdresse" id="billingAdresse" />
                                 <label htmlFor="billingAdresse">Billing adresse is the same as shipping adresse </label>
-                            </div>
+                            </div> */}
                             <button className="backbtn" onClick={handlePrevStep}>
                                 Back
                             </button>
@@ -274,18 +278,32 @@ function Checkout() {
                         <form>
                             <h3>Billing Options</h3>
                             <div className='billig-input-container'>
-                                <div >
-                                    <input type="radio" name="pay" id="card" />
-                                    <label htmlFor="card">Payment with card</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="pay" id="Paypal" />
-                                    <label htmlFor="Paypal">Payment with Paypal</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="pay" id="cash" />
-                                    <label htmlFor="cash">Payment with cash</label>
-                                </div>
+                                <label htmlFor="paypal">
+                                    <div>
+                                    <input type="radio" name="payement" id="paypal"  value='paypal' onChange={(e)=>{setpayementMethod(e.target.value)}}/>
+                                    <h6>paypal</h6>
+                                    </div>
+                                    <img src={paypal} alt="paypal"  />
+                                </label>
+                                <hr />
+                                <label htmlFor="card">
+                                    <div>
+
+                                    <input type="radio" name="payement" id="card" value='card' onChange={(e)=>{setpayementMethod(e.target.value)}}/>
+                                    <h6>Credit or debit card</h6>
+                                    </div>
+                                    <img src={options} alt="card"  />
+                                </label>
+                                <hr />
+                                <label htmlFor="cash">
+                                    <div>
+
+                                    <input type="radio" name="payement" id="cash" value='cash' onChange={(e)=>{setpayementMethod(e.target.value)}}/>
+                                    <h6>Cash on Delivery</h6>
+                                    </div>
+                                    <img src={cash} alt="cash"  />
+                                </label>
+
                             </div>
                             <button className="backbtn" onClick={handlePrevStep}>
                                 Back

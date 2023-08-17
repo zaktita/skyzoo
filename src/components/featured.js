@@ -4,6 +4,7 @@ import productsData from "./products.json";
 import Card from './card';
 import { Menu } from './featuredMenu';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 
@@ -31,7 +32,10 @@ function Featured() {
 
   return (
     <div className='col-md featured'>
-      <h2>New Arrivel</h2>
+      <div className='featured-header'>
+      <h2>New Arrivals</h2>
+      <Link to='/category/New Arrivals'>See more</Link>
+      </div>
       <div className='car-container'>
         {products.slice(0,8).map((product) => (
           <Card key={product.product_id} product={product} designclass='home-card' />

@@ -27,7 +27,7 @@
 .you-may-like{
     display: flex;
     gap: 20px;
-    justify-content: start;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 
@@ -50,5 +50,19 @@
 @media (max-width:500px){
     .right, .left{
         width: 100%;
+        padding: 0;
+    }
+    .right h1{
+        margin: 1rem 0 0 0;
+        font-size: 1.8rem;
+    }
+    .right h2{
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width:500px) {
+    .you-may-like{
+        justify-content: space-between;
     }
 }

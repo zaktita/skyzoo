@@ -14,12 +14,12 @@ export function Badge(props){
 function Badges() {
   return (
     <div className='col-md badges'>
-      <Badge icon={<CiLock className='icons'/>} title='Paiement sécurisé et protégé'/>
-      <Badge icon={<CiStar className='icons'/>} title='Qualité supérieure garantie'/>
-      <Badge icon={<CiDeliveryTruck className='icons'/>} title='livraison gratuite à partir de 1000dh'/>
-      <Badge icon={<AiOutlineCustomerService className='icons'/>} title='Service client de première qualité'/>
-
-    </div>
+    <Badge icon={<CiLock className='icons'/>} title='Secure and Protected Payment'/>
+    <Badge icon={<CiStar className='icons'/>} title='Guaranteed Superior Quality'/>
+    <Badge icon={<CiDeliveryTruck className='icons'/>} title='Free Delivery for Orders Over 1000dh'/>
+    <Badge icon={<AiOutlineCustomerService className='icons'/>} title='First-rate Customer Service'/>
+  </div>
+  
   )
 }
 

@@ -65,7 +65,7 @@ const SearchModal = () => {
                 data-target="searchModal"
                 onClick={toggleModal}
             >
-                <CiSearch />
+                <CiSearch size={20}/>
             </button>
 
             {isOpen && (

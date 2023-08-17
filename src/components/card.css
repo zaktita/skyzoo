@@ -21,6 +21,7 @@
 
 .cart-card img{
     width: 15vw;
+
 }
 .cart-card h4{
     font-size: 1rem;
@@ -30,6 +31,17 @@
 @media (max-width:500px){
     .featured-card img{
         max-width: 10rem;
+    }
+    .home-card img {
+        width: 160px;
+        min-width: 100px;
+    }
+}
+@media (min-width:501px) and (max-width:1107px){
+
+    .home-card img {
+        width: 160px;
+        min-width: 100px;
     }
 }
 

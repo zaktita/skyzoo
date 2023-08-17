@@ -14,7 +14,11 @@
 
 
 .cartitems-content span{
-    margin: 0 10px;
+    margin: 0 10px 0 0;
+    color: black;
+}
+.cartitems-content h2{
+margin-bottom: 0;
 }
 .cartitems-content-right{
     display: flex;

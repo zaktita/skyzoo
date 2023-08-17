@@ -7,7 +7,7 @@ function CategorieCard(props) {
         <h3>{props.title}</h3>
         <h4>{props.description}</h4>
       </span>
-      <Button btnClass='secondBtn'/>
+      <Button btnClass='secondBtn' link={props.link}/>
     </div>
   )
 }

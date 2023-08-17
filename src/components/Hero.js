@@ -4,9 +4,6 @@ import Button from './button'
 import CategorieCard from './categorieCard'
 function Hero() {
 
-  const setclick = () => {
-    console.log('test 67')
-  };
   return (
 
 
@@ -14,16 +11,16 @@ function Hero() {
     <div className='hero-section'>
       <div className='hero-container'>
         <h6>SKYZO SHOES</h6>
-        <h1>Élevez votre style avec nos chaussures</h1>
-        <Button btnClass='mainBtn'  />
+        <h1>Elevate Your Style with Our Shoes</h1>
+        <Button btnClass='mainBtn' link='/category/new arrivals' />
       </div>
     </div>
 
 
     <div className='heror-sub-section' >
-    <CategorieCard sectionType='Sneackers' title='Sneackers' description='Tendance et Confort' />
-    <CategorieCard sectionType='Heals' title='Heals' description='Féminité et Audace' />
-    <CategorieCard sectionType='baskets' title='Baskets' description='Style et Fonctionnalité' />
+    <CategorieCard sectionType='Sneackers' title='Sneackers' description='Stylish and Cozy' link='/category/Sneackers'/>
+    <CategorieCard sectionType='Heals' title='Heals' description='Elegant and Lightweight' link='/category/Sneackers'/>
+    <CategorieCard sectionType='baskets' title='Shoes' description='Iconic and Flexible' link='/category/shoes'/>
     </div>
     </div>
   )

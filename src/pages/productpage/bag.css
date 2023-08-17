@@ -116,7 +116,7 @@ color: white !important
   }
 
   /* Responsive styles */
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 750px) and (min-width: 500px) {
     .col-md {
       padding: 10px;
     }
@@ -129,4 +129,36 @@ color: white !important
       margin-top: 20px;
     }
   }
+  @media screen and (max-width: 500px) {
+    .col-md {
+      padding: 10px;
+    }
+  
+    .bag-summary-container {
+      flex-direction: column;
+    }
+  
+    .bag-summary-container-right {
+      margin-top: 20px;
+    }
+  }
+  
+
+  .disount-container{
+    display: flex;
+    gap: 10px;
+  }
+  .disount-container button{
+    background-color: var(--maincolor);
+    color: white;
+    text-transform: capitalize;
+  }
+ 
+  .disount-container input {
+    padding: 0px 5px;
+    height: 40px;
+    border: 1px solid var(--maincolor);
+    border-radius: 4px;
+  }
+
   

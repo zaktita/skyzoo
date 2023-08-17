@@ -7,15 +7,18 @@ import '../components/pagination.css';
 import Filters from '../components/filters';
 import { useParams } from 'react-router';
 
-
+import sneaker from '../assets/jimmy/2x1-content-slot-summer-launch-florent-M.webp'
 function Categorie() {
   // State variables
   const [products, setProducts] = useState([]);
   const [categoryName, setCategoryName] = useState('');
   const [categoryDescription, setCategoryDescription] = useState('');
+  const [categoryImage, setCategoryImage] = useState('');
   const [results, setResults] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(8);
+  const [productsPerPage] = useState(16);
+
+  const [mapLimit , setMapLimit]=useState(9)
   const { urlCategory } = useParams();
   const [filters, setFilters] = useState({
     filterCategory: urlCategory,
@@ -26,7 +29,6 @@ function Categorie() {
   })
 
   useEffect(() => {
-    console.log(filters);
     fetchProductFromServer();
   }, [filters]);
 
@@ -39,6 +41,7 @@ function Categorie() {
       let filteredProducts = response.data.products;
       setCategoryName(response.data.category.category_name);
       setCategoryDescription(response.data.category.category_description);
+      setCategoryImage(response.data.category.category_image)
       // console.log(response.data.products);
       // if (filters.filterColor.length > 0) {
       //   setProducts(response.data.products.filter((product) => filters.filterColor.some((color) => product.colors.includes(color))))
@@ -55,13 +58,13 @@ function Categorie() {
           filters.filterColor.some((color) => product.colors.includes(color))
         );
       }
-  
+
       if (filters.filterSize.length > 0) {
         filteredProducts = filteredProducts.filter(
-          (product) =>filters.filterSize.some((size) => product.sizes.includes(+size))
+          (product) => filters.filterSize.some((size) => product.sizes.includes(+size))
         );
       }
-  
+
       if (filters.minPrice >= 0 || filters.maxPrice > 0) {
         filteredProducts = filteredProducts.filter(
           (product) => product.price >= filters.minPrice && product.price <= filters.maxPrice
@@ -133,14 +136,36 @@ function Categorie() {
         </div>
       </div>
 
-      <div className="car-container">
-        {currentProducts.map((product) => (
-          <Card key={product.product_id} product={product} designclass="home-card" />
-        ))}
-      </div>
+
 
       {
-        (products.length > 8) ? renderPagination() : null
+        results != 0 ?
+
+          <div className="car-container">
+
+            {currentProducts.slice(0, 8).map((product) => (
+              <Card key={product.product_id} product={product} designclass="home-card" />
+            ))}
+
+            {currentProducts.length > 8 && currentProducts.length < 17 ?
+              <span style={{ backgroundImage: `url(${sneaker})` }} className='category-image-span'>
+                <h3>{categoryName}</h3>
+              </span> : null
+            }
+
+            {currentProducts.slice(8).map((product) => (
+              <Card key={product.product_id} product={product} designclass="home-card" />
+            ))}
+          </div>
+
+          : <h3>No results found</h3>
+      }
+
+
+
+
+      {
+        (products.length > 16) ? renderPagination() : null
       }
     </div>
   );

@@ -36,7 +36,7 @@ function Cart() {
                 data-target="cartmodal"
                 onClick={toggleModal}
             >
-                <CiShoppingCart />
+                <CiShoppingCart size={20}/>
                 <span className="cart-count">{cartItems.length}</span>
             </button>
 
@@ -50,14 +50,14 @@ function Cart() {
                                     data-dismiss="cartmodal"
                                     onClick={toggleModal}
                                 >
-                                    <AiOutlineClose />
+                                    <AiOutlineClose  size={20}/>
                                 </button>
                             </div>
                             <div className='cart-body'>
                                 {
                                     cartItems.length > 0 ?
                                         cartItems.map((product, index) => (
-                                            <CartItems key={product.id + index} product={product} designclass='cart-card' />
+                                            <CartItems key={product.item_id} product={product} designclass='cart-card' />
                                         )) :
                                         <h2>No items in cart</h2>
                                 }
@@ -70,12 +70,10 @@ function Cart() {
                                 <h4>{calculateTotal(cartItems)}</h4>
 
                             </div>
-                            <button data-dismiss="cartmodal"
-                                onClick={toggleModal}>back to shopping</button>
-                                  <a href="/bag">
-                            <button >
-                                Checkout</button>
-                                    </a>  
+                            <button data-dismiss="cartmodal" onClick={toggleModal}>back to shopping</button>
+                            <a href="/bag">
+                                <button >Checkout</button>
+                            </a>
                         </div>
                     </div>
 

@@ -6,9 +6,11 @@ function CategorieTitle(props) {
       <h2
       style={{fontSize:'1.2rem'}}
       >{props.title}</h2>
+      {props.description!='' ?
       <h4
-        style={{ display: 'inline-block', margin: '0 auto' , fontSize:'.8rem' , width:'80%', marginTop:'15px'}}
-      >{props.description}</h4>
+      style={{ display: 'inline-block', margin: '0 auto' , fontSize:'.8rem' , width:'80%', marginTop:'15px'}}
+      >{props.description}</h4> : null
+    }
     </div>
   )
 }

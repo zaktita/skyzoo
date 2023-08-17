@@ -17,11 +17,11 @@ function BagItems({product}) {
     <div className='bag-item-info'>
     <div className='bag-item-title'>
     <h2 >{product.title}</h2>
-    <h2 className='bag-item-price'>{product.totalPrice} DH</h2>
+    <h2 className='bag-item-price'>{product.totalPrice}DH</h2>
         </div>
-    <h4><span>color : </span>{product.color}</h4>
-    <h4><span>size : </span>{product.size}</h4>
-    <h4><span>quanity : </span>{product.quantity}</h4>
+    <h3><span>color : </span>{product.color}</h3>
+    <h3><span>size : </span>{product.size}</h3>
+    <h3><span>quanity : </span>{product.quantity}</h3>
     </div>
 
 

@@ -34,10 +34,14 @@ const ShoppingCartProvider = ({ children }) => {
 
 
 
-  const removeFromCart = (id) => {
-    setCartItems((currItems) => currItems.filter((item) => item.id !== id));
-  };
+  // const removeFromCart = (id) => {
+  //   setCartItems((currItems) => currItems.filter((item) => item.id !== id));
+  // };
 
+  const removeFromCart = (item_id) => {
+    // Remove product from cartItems
+    setCartItems(cartItems.filter((item) => item.item_id !== item_id));
+  };
   const calculateTotal = (cartItems) => {
     return cartItems.reduce((accumulator, product) => {
       return accumulator + product.totalPrice;

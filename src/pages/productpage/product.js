@@ -7,11 +7,36 @@ import Carousel from './mobileSlider';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import { useShoppingCart } from '../../context/ShoppingCartContext';
+import { Link } from 'react-router-dom';
 
 
 
 function Product() {
-  const isMobile = window.innerWidth <= 500;
+  // const isMobile = window.innerWidth <= 500;
+
+
+
+  // function to handle the screen resize so it can switch to the slider automatically when decreasing 
+  // the screen size
+
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 500);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
+  const [isLoading, setIsLoading] = useState(false); // Initialize the isLoading state
   const [quantity, setQuantity] = useState(1);
 
   const [productImages, setproductImages] = useState([]);
@@ -24,17 +49,18 @@ function Product() {
   const [productCategory, setProductCategory] = useState();
   const [selectedProductSize, setSelectedProductSize] = useState(productSize[0]);
   const [selectedProductColor, setSelectedProductColor] = useState(productColors[0]);
-
+  const [categoryName, setcategoryName] = useState();
   const [similarProducts, setSimilarProducts] = useState([]);
   const { product_id } = useParams()
 
-const [index,setIndex] = useState(0)
-const [error,setError] = useState("")
+  const [index, setIndex] = useState(0)
+  const [error, setError] = useState("")
   const { cartItems,
     updatecartItems } = useShoppingCart();
   useEffect(() => {
     fetchProductFromServer();
-  }, []);
+  }, [product_id]);
+
   const fetchProductFromServer = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/products/${product_id}`);
@@ -46,6 +72,7 @@ const [error,setError] = useState("")
       setProductSize(response.data.product.sizes)
       setProductColors(response.data.product.colors)
       setSimilarProducts(response.data.similarProducts);
+      setcategoryName(response.data.category.category_name);
     } catch (error) {
       console.log(error);
     }
@@ -77,18 +104,22 @@ const [error,setError] = useState("")
 
   const handleSizeChange = (e) => {
     setSelectedProductSize(e.target.value)
-    console.log(selectedProductSize);
+    // console.log(selectedProductSize);
   }
 
   const handleAddedProduct = () => {
-
+    console.log('add to cart');
     if (!selectedProductSize || !selectedProductColor) {
       setError("Please select a size and color");
       return;
     }
     setError(null)
+    function generateRandomItemId() {
+      return Math.floor(Math.random() * 100000); // Adjust the range as needed
+    }
+
     const product = {
-      item_id: index,
+      item_id: generateRandomItemId(),
       title: productTile,
       description: productDescription,
       price: +productPrice,
@@ -96,23 +127,20 @@ const [error,setError] = useState("")
       size: selectedProductSize,
       color: selectedProductColor,
       image: productImages[0],
-      quantity : quantity,
-      totalPrice : productPrice * quantity,
-      product_id : +product_id,
+      quantity: quantity,
+      totalPrice: productPrice * quantity,
+      product_id: +product_id,
     }
     if (!cartItems.length > 1) {
-
       updatecartItems([product])
     } else { updatecartItems([...cartItems, product]) }
-    console.log(product.id);
-    setIndex(product.id + 1)
-  
   }
 
   useEffect(() => {
-    console.log(cartItems.totalPrice);
+    // console.log(cartItems.totalPrice);
   }
     , [cartItems])
+
 
 
   return (
@@ -142,14 +170,14 @@ const [error,setError] = useState("")
 
           <select name="sizes" id="sizes" required onChange={(e) => handleSizeChange(e)}>
             {productSize.sort().map((size, index) => (
-              <option key={index}   value={size}>{size}</option>
+              <option key={index} value={size}>{size}</option>
             ))
             }
           </select>
 
 
 
-          <div style={{ display: 'flex', gap: '10px' }}>
+          {/* <div style={{ display: 'flex', gap: '10px' }}>
             {productColors.map((color, index) => (
               <div
                 key={index}
@@ -166,7 +194,7 @@ const [error,setError] = useState("")
                     handleColorChange(e, index, color);
                   }}
 
-/>
+                />
                 <label
                   htmlFor={index}
                   style={{ width: '100%', height: '100%', position: 'absolute', right: '0', top: '0' }}
@@ -180,10 +208,80 @@ const [error,setError] = useState("")
             <button onClick={handleDecrement} style={{ padding: '5px 10px', borderRight: '1px solid black' }}>-</button>
             <span style={{ padding: '5px 10px', }}>{quantity}</span>
             <button onClick={handleIncrement} style={{ padding: '5px 10px', borderLeft: '1px solid black' }}>+</button>
-          </div>
+          </div> */}
 
-          <Addtocart btnClass='mainBtn' click={handleAddedProduct} />
 
+          {/* display the color beside the increment button on mobile */}
+          {isMobile ? (
+            <div style={{ display: 'flex', gap: '20px' }}>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                {productColors.map((color, index) => (
+                  <div
+                    key={index}
+                    className='color-box'
+                    style={{ backgroundColor: color, width: "30px", position: 'relative' }}
+                  >
+                    <input
+                      type="radio"
+                      name="color"
+                      required
+                      id={index}
+                      style={{ visibility: 'hidden' }}
+                      onClick={(e) => {
+                        handleColorChange(e, index, color);
+                      }}
+                    />
+                    <label
+                      htmlFor={index}
+                      style={{ width: '100%', height: '100%', position: 'absolute', right: '0', top: '0' }}
+                    ></label>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ display: 'flex', width: '100px', justifyContent: 'space-between', border: '1px solid black' }}>
+                <button onClick={handleDecrement} style={{ padding: '5px 10px', borderRight: '1px solid black' }}>-</button>
+                <span style={{ padding: '5px 10px', }}>{quantity}</span>
+                <button onClick={handleIncrement} style={{ padding: '5px 10px', borderLeft: '1px solid black' }}>+</button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {productColors.map((color, index) => (
+                  <div
+                    key={index}
+                    className='color-box'
+                    style={{ backgroundColor: color, width: "30px", height: '30px', position: 'relative' }}
+                  >
+                    <input
+                      type="radio"
+                      name="color"
+                      required
+                      id={index}
+                      style={{ visibility: 'hidden' }}
+                      onClick={(e) => {
+                        handleColorChange(e, index, color);
+                      }}
+                    />
+                    <label
+                      htmlFor={index}
+                      style={{ width: '100%', height: '100%', position: 'absolute', right: '0', top: '0' }}
+                    ></label>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ display: 'flex', width: '100px', justifyContent: 'space-between', border: '1px solid black' }}>
+                <button onClick={handleDecrement} style={{ padding: '5px 10px', borderRight: '1px solid black' }}>-</button>
+                <span style={{ padding: '5px 10px', }}>{quantity}</span>
+                <button onClick={handleIncrement} style={{ padding: '5px 10px', borderLeft: '1px solid black' }}>+</button>
+              </div>
+            </>
+          )}
+
+
+          <Addtocart btnClass={isLoading ? 'loading' : 'mainBtn'} click={handleAddedProduct} />
 
 
           <div>
@@ -217,12 +315,19 @@ const [error,setError] = useState("")
         </div>
 
       </div>
-      <h3>Vous pouvez aimer</h3>
-      <div className='you-may-like'>
-        {similarProducts.map((product, index) => (
-          <Card key={product.product_id} product={product} designclass='home-card' />
-        ))}
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <h3>Vous pouvez aimer</h3>
+        <Link to={`/category/${categoryName}`} >See more</Link>
+
       </div>
+      <div className='you-may-like'>
+        {similarProducts
+          .slice(0, isMobile ? 3 : undefined)
+          .map((product) => (
+            <Card key={product.product_id} product={product} designclass="home-card" />
+          ))}
+      </div>
+
 
     </div>
   )

@@ -113,16 +113,10 @@ function SearchResaults() {
 
     return (
         <div className="col-md categorie">
-            <CategorieTitle className="categoryHeader" title={categoryName} description={categoryDescription} />
+            <CategorieTitle className="categoryHeader" title={`Showing results for '${searchKeyWord}'`} description={''} />
             <div className="filters-bar">
                 <h4>{results} Products</h4>
-                <div className="filters">
-                    {/* <h3>filters</h3> */}
-                    {/* <Filters setApplyFilter={setFilters} /> */}
-
-                </div>
             </div>
-
             <div className="car-container">
                 {currentProducts.map((product) => (
                     <Card key={product.product_id} product={product} designclass="home-card" />

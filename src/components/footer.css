@@ -26,10 +26,11 @@
     .Service,.newsletter,.socials,.contact {
         display: flex;
         width: 100%;
-        text-align: center;
         gap: 10px;
     }
-    
+    .footer h2{
+        margin-bottom: 0.5rem;
+    }
 }
 .newsletter input{
     border: none;
