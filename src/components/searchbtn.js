@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './searchbtn.css'
 import { CiSearch } from 'react-icons/ci';
 import { AiOutlineClose } from 'react-icons/ai';
-// import productsData from "./products.json";
+
 import Card from './card';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+
+import axiosClient from '../pages/productpage/axios_client';
 
 const SearchModal = () => {
     const [products, setProducts] = useState([]);
@@ -46,7 +46,7 @@ const SearchModal = () => {
         console.log(searchKeyWord);
         // e.preventDefault()
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/search/${searchKeyWord}`);
+            const response = await axiosClient.get(`/search/${searchKeyWord}`);
             setProducts(response.data.products)
             console.log(response.data.products);
         } catch (error) {

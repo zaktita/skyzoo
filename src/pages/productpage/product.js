@@ -4,12 +4,10 @@ import Card from '../../components/card';
 import Addtocart from '../../components/addtocart';
 import Accordion from '../../components/accordion';
 import Carousel from './mobileSlider';
-import axios from 'axios';
 import { useParams } from 'react-router';
 import { useShoppingCart } from '../../context/ShoppingCartContext';
 import { Link } from 'react-router-dom';
-
-
+import axiosClient from './axios_client';
 
 function Product() {
   // const isMobile = window.innerWidth <= 500;
@@ -53,18 +51,26 @@ function Product() {
   const [similarProducts, setSimilarProducts] = useState([]);
   const { product_id } = useParams()
 
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(0);
   const [error, setError] = useState("")
   const { cartItems,
     updatecartItems } = useShoppingCart();
   useEffect(() => {
-    fetchProductFromServer();
+    const execFetch = async () => {
+      await fetchProductFromServer();
+      console.log('Product colors', selectedProductSize)
+      setSelectedProductSize(productSize[0]);
+      setSelectedProductColor(productColors[0]);
+    }
+    execFetch();
+    console.log(selectedProductSize)
   }, [product_id]);
 
   const fetchProductFromServer = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/products/${product_id}`);
+      const response = await axiosClient.get(`/products/${product_id}`);
       setproductImages(response.data.productImages)
+      console.log(productImages);
       setProductTile(response.data.product.title)
       setProductDescription(response.data.product.description)
       setProductPrice(response.data.product.price)
@@ -72,6 +78,7 @@ function Product() {
       setProductSize(response.data.product.sizes)
       setProductColors(response.data.product.colors)
       setSimilarProducts(response.data.similarProducts);
+      console.log('similar', similarProducts);
       setcategoryName(response.data.category.category_name);
     } catch (error) {
       console.log(error);
@@ -108,7 +115,6 @@ function Product() {
   }
 
   const handleAddedProduct = () => {
-    console.log('add to cart');
     if (!selectedProductSize || !selectedProductColor) {
       setError("Please select a size and color");
       return;
@@ -153,7 +159,7 @@ function Product() {
             productImages.map((image, index) => (
               <img
                 key={index}
-                src={`http://localhost:8000/storage/${image.filename}`}
+                src={image.filename}
                 alt={`Product Image ${index + 1}`}
                 style={{ width: '100%' }}
               />

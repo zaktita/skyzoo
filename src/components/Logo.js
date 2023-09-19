@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 function Logo() {
   return (
     <Link to='/'>
-        <img src={logo} style={{width: '70px'}} alt="logo" /> 
+        <img src={logo} style={{width: '70px' , lineHeight: '0'}} alt="logo" /> 
     </Link>
   )
 }

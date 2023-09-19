@@ -3,8 +3,8 @@ import './featured.css';
 import productsData from "./products.json";
 import Card from './card';
 import { Menu } from './featuredMenu';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import axiosClient from '../pages/productpage/axios_client';
 
 
 
@@ -19,7 +19,7 @@ function Featured() {
   }, []);
   const fetchProductFromServer = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/category/New Arrivals ");
+      const response = await axiosClient.get("/category/New Arrivals ");
       setproducts(response.data.products);
       setCategoryName(response.data.category.category_name);
       setCategoryDescription(response.data.category.category_description);

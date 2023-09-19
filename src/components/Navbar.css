@@ -34,7 +34,9 @@
 .navbar_logo img{
     width: 60px;
 }
-
+.navbar_logo a {
+    line-height: 0;
+}
 .menu_icon{
     display: none;
 }

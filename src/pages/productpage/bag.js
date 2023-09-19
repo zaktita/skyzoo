@@ -3,8 +3,7 @@ import { useShoppingCart } from '../../context/ShoppingCartContext';
 import { Link } from 'react-router-dom';
 import './bag.css'
 import BagItems from '../../components/BagItems';
-import paypalLogo from '../../assets/PayPal-Logo-PNG4.png'
-import axios from 'axios';
+import axiosClient from './axios_client';
 
 function Bag() {
     const { cartItems, calculateTotal } = useShoppingCart();
@@ -21,7 +20,7 @@ function Bag() {
                     Accept: "application/json",
                 },
             };
-            const response = await axios.post(`http://127.0.0.1:8000/api/coupon/${discountCode}`, { headers: config.headers });
+            const response = await axiosClient.post(`/coupon/${discountCode}`, { headers: config.headers });
             setDiscount(response.data.coupon);
             console.log(response.data.coupon);
 
@@ -87,9 +86,9 @@ function Bag() {
                                 <span>Estimated Total </span>
                                 <span>{calculateTotal(cartItems) - (calculateTotal(cartItems) * discount / 100) + shipping} DH</span>
                             </div>
-                            <a href="https://www.paypal.com">
+                            {/* <a href="https://www.paypal.com">
                                 <button> <img src={paypalLogo} alt="" /></button>
-                            </a>
+                            </a> */}
                             <a href="/Checkout" onClick={handleCheckout} >
                                 <button className='btn-checkout'>secure checkout</button>
                             </a>

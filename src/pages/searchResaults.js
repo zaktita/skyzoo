@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/card';
 import CategorieTitle from '../components/categorieTitle';
-import axios from 'axios';
 import './categorie.css';
 import '../components/pagination.css';
 import Filters from '../components/filters';
 import { useParams } from 'react-router';
+import axiosClient from './productpage/axios_client';
 
 
 function SearchResaults() {
@@ -35,7 +35,7 @@ function SearchResaults() {
     const fetchProductFromServer = async () => {
 
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/search/${searchKeyWord}`);
+            const response = await axiosClient.get(`/search/${searchKeyWord}`);
             let filteredProducts = response.data.products;
 
             console.log(response.data.products);

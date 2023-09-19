@@ -34,7 +34,7 @@
 
 }
 
-@media (width<480) {
+@media (max-width: 480px) {
     .category-image-span{
         width: 100%;
         height: 200px;

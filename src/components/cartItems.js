@@ -13,7 +13,7 @@ function CartItems(props) {
   }
   return (
     <div className='cartitems'>
-        <img src={`http://localhost:8000/storage/${product.image.filename}`}
+        <img src={product.image.filename}
         alt={product.title} />
       <div className='cartitems-content'>
         <h2>{product.title}</h2>

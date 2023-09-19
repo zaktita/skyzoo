@@ -10,7 +10,8 @@ function BagItems({product}) {
 
   return (
     <div className='bagitems-cointainer'>
-    <img src={`http://localhost:8000/storage/${product.image.filename}`}
+    {/* <img src={`http://localhost:8000/storage/${product.image.filename}`} */}
+    <img src={product.image.filename}
     alt={product.title} />
   <div className='bag-items'>
 

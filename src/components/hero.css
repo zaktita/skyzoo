@@ -1,6 +1,6 @@
 .hero-section{
     padding: 80px;
-    background-image: url('../assets/basic-white-sneakers-unisex-streetwear-fashion-shoot.jpg');
+    background-image: url('../assets/hero_bg.webp');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: bottom center;
@@ -43,7 +43,7 @@
     background-image: url(../assets/Heals.webp);
 }
 .baskets{
-    background-image: url(../assets/baskets.webp);
+    background-image: url(../assets/boots.webp);
 }
 
 

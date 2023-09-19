@@ -3,30 +3,29 @@ import './checkout.css';
 import logo from '../../assets/logo.webp';
 import { useShoppingCart } from '../../context/ShoppingCartContext';
 import { useNavigate } from 'react-router';
-import axios from 'axios';
-import paypal from '../../assets/paypal.svg'
-import cash from '../../assets/cash.svg'
+import cash from '../../assets/cash.png'
 import options from '../../assets/options.svg'
-
+import axiosClient from './axios_client';
+import Logo from '../../components/Logo';
 
 
 function Checkout() {
-    const { cartItems, calculateTotal } = useShoppingCart();
-    const [step, setStep] = useState(3);
-    const [payementMethod, setpayementMethod] = useState('');
 
+
+    const { cartItems, calculateTotal, discount } = useShoppingCart();
+    const [step, setStep] = useState(1);
+    const [payementMethod, setpayementMethod] = useState('');
 
     const Navigate = useNavigate()
     const initialFormData = {
-        firstName: '',
-        lastName: '',
-        phone: '',
-        email: '',
-        address: '',
-        address2: '',
-        city: '',
-        country: '',
-        zip: '',
+        firstName: 'tester',
+        lastName: 'test',
+        phone: +'0699887766',
+        email: 'testing@tester.com',
+        address: 'street 1 avenue 1',
+        city: 'casablanca',
+        country: 'maroc',
+        zip: 10000,
     };
 
     const initialFormErrors = {
@@ -35,6 +34,7 @@ function Checkout() {
         phone: '',
         email: '',
         address: '',
+        address2: '',
         city: '',
         country: '',
         zip: '',
@@ -67,7 +67,7 @@ function Checkout() {
         }
 
         requiredFields.forEach((field) => {
-            if (formData[field].trim() === '') {
+            if (typeof formData[field] === 'string' && formData[field].trim() === '') {
                 newFormErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
             }
         });
@@ -97,28 +97,34 @@ function Checkout() {
         setStep(step - 1);
     };
 
-    console.log(cartItems);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const DataToSubmit = new FormData();
-        console.log("form submit working");
 
         try {
-            //   await form.validateFields();
-
-            DataToSubmit.append("first_name", formData.firstName);
-            DataToSubmit.append("last_name", formData.lastName);
-            DataToSubmit.append("phone", formData.phone);
-            DataToSubmit.append("email", formData.email);
-            DataToSubmit.append("adresse", formData.address);
-            DataToSubmit.append("city", formData.city);
-            DataToSubmit.append("country", formData.country);
-            DataToSubmit.append("zipcode", formData.zip);
+            DataToSubmit.append("first_name", initialFormData.firstName);
+            DataToSubmit.append("last_name", initialFormData.lastName);
+            DataToSubmit.append("phone", initialFormData.phone);
+            DataToSubmit.append("email", initialFormData.email);
+            DataToSubmit.append("adresse", initialFormData.address);
+            DataToSubmit.append("city", initialFormData.city);
+            DataToSubmit.append("country", initialFormData.country);
+            DataToSubmit.append("zipcode", initialFormData.zip);
             DataToSubmit.append("total_price", calculateTotal(cartItems));
+            DataToSubmit.append("discount", discount);
+            DataToSubmit.append("payement_method", payementMethod);
             DataToSubmit.append("status", 'pending');
             DataToSubmit.append("items", JSON.stringify(cartItems));
-            console.log(DataToSubmit);
+
+            console.log(cartItems);
+            // convert the FormData into an object by iterating through its entries and constructing an object with key-value pairs
+            const formDataObject = {};
+            for (const [key, value] of DataToSubmit.entries()) {
+                formDataObject[key] = value;
+            }
+            sessionStorage.setItem('DataToSubmit', JSON.stringify(formDataObject));
+            // console.log(DataToSubmit);
             const config = {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -126,19 +132,37 @@ function Checkout() {
                 },
             };
 
-            const response = await axios.post(
-                "http://127.0.0.1:8000/api/orders",
-                DataToSubmit,
-                { headers: config.headers }
-            );
-            console.log(response.data);
-            Navigate('/ThankYouPage');
-            localStorage.clear();
+            // Check if the selected payment method is 'card'
+            if (payementMethod === 'card') {
+                // Call an API endpoint on your backend to initiate a Stripe Payment Intent
+                const response = await axiosClient.post(
+                    "/stripe",
+                    {cartItems : JSON.stringify(cartItems),
+                        amount: calculateTotal(cartItems), // Send the order amount to the backend
+                        currency: 'MAD', // Replace with your desired currency
+                    }
+                );
+
+                window.location.href = response.data.redirectUrl;
+
+
+                // if (result.error) {
+                //     // Handle payment error
+                //     console.log(result.error.message);
+                // } else {
+                //     // Payment succeeded, create the order on your backend
+                //     // Use the DataToSubmit to send order details
+                // }
+            } else {
+                // Handle other payment methods here
+                Navigate('/thankYouPage')
+            }
         } catch (error) {
             console.log(error);
-            //   message.error("Error placing order");
+            // message.error("Error placing order");
         }
     };
+
 
 
 
@@ -278,30 +302,30 @@ function Checkout() {
                         <form>
                             <h3>Billing Options</h3>
                             <div className='billig-input-container'>
-                                <label htmlFor="paypal">
+                                {/* <label htmlFor="paypal">
                                     <div>
-                                    <input type="radio" name="payement" id="paypal"  value='paypal' onChange={(e)=>{setpayementMethod(e.target.value)}}/>
-                                    <h6>paypal</h6>
+                                        <input type="radio" name="payement" id="paypal" value='paypal' onChange={(e) => { setpayementMethod(e.target.value) }} />
+                                        <h6>paypal</h6>
                                     </div>
-                                    <img src={paypal} alt="paypal"  />
+                                    <img src={paypal} alt="paypal" />
                                 </label>
-                                <hr />
+                                <hr /> */}
                                 <label htmlFor="card">
                                     <div>
 
-                                    <input type="radio" name="payement" id="card" value='card' onChange={(e)=>{setpayementMethod(e.target.value)}}/>
-                                    <h6>Credit or debit card</h6>
+                                        <input type="radio" name="payement" id="card" value='card' onChange={({target}) => { setpayementMethod(target.value) }} />
+                                        <h6>Credit or debit card</h6>
                                     </div>
-                                    <img src={options} alt="card"  />
+                                    <img src={options} alt="card" />
                                 </label>
                                 <hr />
                                 <label htmlFor="cash">
                                     <div>
 
-                                    <input type="radio" name="payement" id="cash" value='cash' onChange={(e)=>{setpayementMethod(e.target.value)}}/>
-                                    <h6>Cash on Delivery</h6>
+                                        <input type="radio" name="payement" id="cash" value='cash' onChange={(e) => { setpayementMethod(e.target.value) }} />
+                                        <h6>Cash on Delivery</h6>
                                     </div>
-                                    <img src={cash} alt="cash"  />
+                                    <img src={cash} alt="cash" style={{width : '40px'}}/>
                                 </label>
 
                             </div>
@@ -320,8 +344,10 @@ function Checkout() {
     return (
         <div className="checkout-container">
             <div className="checkout-content">
+                {/* <Elements stripe={stripePromise}>
+                </Elements> */}
                 <div className="checkout-header">
-                    <img src={logo} alt="" style={{ width: '50px', height: '30px' }} />
+                    <Logo/>
                     <h4>
                         {cartItems.length} items | {calculateTotal(cartItems)} DH
                     </h4>
@@ -340,12 +366,3 @@ function Checkout() {
 }
 
 export default Checkout;
-
-
-
-
-
-
-
-
-

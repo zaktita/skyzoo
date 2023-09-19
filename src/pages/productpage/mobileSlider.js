@@ -48,7 +48,7 @@ const Carousel = ({ images }) => {
         {images.map((image, index) => (
           <img
             key={index}
-            src={`http://localhost:8000/storage/${image.filename}`}
+            src={image.filename}
             alt="carousel-image"
             style={{
               flex: '0 0 100%',

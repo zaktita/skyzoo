@@ -14,6 +14,7 @@ import ShoppingCartProvider from "./context/ShoppingCartContext";
 import Bag from "./pages/productpage/bag";
 import Checkout from "./pages/productpage/checkout";
 import ThankYouPage from "./pages/productpage/ThankYouPage";
+import PaymentButton from "./pages/productpage/PaymentButton";
 
 function MainRouter() {
   return (
@@ -21,15 +22,16 @@ function MainRouter() {
       <Router>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<Navigate to="/Home" replace />} />
-            <Route path="/Home" element={<Home />} />
+            {/* <Route index element={<Navigate to="/Home" replace />} /> */}
+            <Route index element={<Home />} />
             <Route path="/product/:product_id" element={<Product />} />
             <Route path="/Category/:urlCategory" element={<Categorie />} />
             <Route path="/search/:searchKeyWord" element={<SearchResaults />} />
             <Route path="/Bag" element={<Bag />} />
           </Route>
-            <Route path="/Checkout" element={<Checkout />} />
-            <Route path="/ThankYouPage" element={<ThankYouPage />} />
+          <Route path="/Checkout" element={<Checkout />} />
+          <Route path="/PaymentButton" element={<PaymentButton />} />
+          <Route path="/ThankYouPage" element={<ThankYouPage />} />
         </Routes>
       </Router>
     </ShoppingCartProvider>

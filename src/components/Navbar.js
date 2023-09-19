@@ -24,8 +24,10 @@ const Navbar = () => {
             <ul>
               <li><a href="/">Home</a><MdKeyboardArrowRight /></li>
               <li><a href="/category/Sneakers">Sneakers</a><MdKeyboardArrowRight /></li>
-              <li><a href="/category/Heals">Heals</a><MdKeyboardArrowRight /></li>
-              <li><a href="/category/shoes">shoes</a><MdKeyboardArrowRight /></li>
+              <li><a href="/category/Pumps">Pumps</a><MdKeyboardArrowRight /></li>
+              <li><a href="/category/Sandals">Sandals</a><MdKeyboardArrowRight /></li>
+              <li><a href="/category/Boots">Boots</a><MdKeyboardArrowRight /></li>
+
             </ul>
           </nav>
         </div>)}
@@ -35,11 +37,10 @@ const Navbar = () => {
           <Logo />
           <nav className="navbar_menu">
             <ul>
-              <li><Link to="/">Home</Link></li>
               <li><a href="/category/Sneakers">Sneakers</a></li>
-              <li><a href="/category/Heals">Heals</a></li>
-              <li><a href="/category/shoes">shoes</a></li>
-
+              <li><a href="/category/Pumps">Pumps</a></li>
+              <li><a href="/category/Sandals">Sandals</a></li>
+              <li><a href="/category/Boots">Boots</a></li>
             </ul>
           </nav>
         </div>

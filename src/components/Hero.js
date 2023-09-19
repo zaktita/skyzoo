@@ -18,9 +18,9 @@ function Hero() {
 
 
     <div className='heror-sub-section' >
-    <CategorieCard sectionType='Sneackers' title='Sneackers' description='Stylish and Cozy' link='/category/Sneackers'/>
-    <CategorieCard sectionType='Heals' title='Heals' description='Elegant and Lightweight' link='/category/Sneackers'/>
-    <CategorieCard sectionType='baskets' title='Shoes' description='Iconic and Flexible' link='/category/shoes'/>
+    <CategorieCard sectionType='Sneackers' title='Sneakers' description='Stylish and Cozy' link='/category/Sneakers'/>
+    <CategorieCard sectionType='Heals' title='Pumps' description='Elegant and Lightweight' link='/category/Pumps'/>
+    <CategorieCard sectionType='baskets' title='Boots' description='Iconic and Flexible' link='/category/Boots'/>
     </div>
     </div>
   )

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/card';
 import CategorieTitle from '../components/categorieTitle';
-import axios from 'axios';
+
 import './categorie.css';
 import '../components/pagination.css';
 import Filters from '../components/filters';
 import { useParams } from 'react-router';
+import axiosClient from './productpage/axios_client';
 
-import sneaker from '../assets/jimmy/2x1-content-slot-summer-launch-florent-M.webp'
+// import sneaker from '../assets/2x1-content-slot-summer-launch-florent-M.webp'
 function Categorie() {
   // State variables
   const [products, setProducts] = useState([]);
@@ -18,7 +19,7 @@ function Categorie() {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(16);
 
-  const [mapLimit , setMapLimit]=useState(9)
+  const [mapLimit, setMapLimit] = useState(9)
   const { urlCategory } = useParams();
   const [filters, setFilters] = useState({
     filterCategory: urlCategory,
@@ -37,7 +38,7 @@ function Categorie() {
   // Fetch products from the server
   const fetchProductFromServer = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/category/${filters.filterCategory}`);
+      const response = await axiosClient.get(`/category/${filters.filterCategory}`);
       let filteredProducts = response.data.products;
       setCategoryName(response.data.category.category_name);
       setCategoryDescription(response.data.category.category_description);
@@ -136,8 +137,6 @@ function Categorie() {
         </div>
       </div>
 
-
-
       {
         results != 0 ?
 
@@ -148,7 +147,7 @@ function Categorie() {
             ))}
 
             {currentProducts.length > 8 && currentProducts.length < 17 ?
-              <span style={{ backgroundImage: `url(${sneaker})` }} className='category-image-span'>
+              <span style={{ backgroundImage: `url(${categoryImage})` }} className='category-image-span'>
                 <h3>{categoryName}</h3>
               </span> : null
             }
@@ -160,10 +159,6 @@ function Categorie() {
 
           : <h3>No results found</h3>
       }
-
-
-
-
       {
         (products.length > 16) ? renderPagination() : null
       }

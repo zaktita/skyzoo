@@ -9,7 +9,7 @@ function Card(props) {
   return (
     <div className={props.designclass}>
       <Link to={`/product/${product.product_id}`}>
-        <img src={`http://localhost:8000/storage/${product.image}`} alt={product.title} />
+        <img src={product.image} alt={product.title} />
       </Link>
       <div className='card-info'>
         <Link to={`/product/${product.product_id}`}>

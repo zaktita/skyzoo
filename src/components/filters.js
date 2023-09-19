@@ -4,6 +4,7 @@ import { BsFilter } from 'react-icons/bs';
 import Card from './card';
 import Accordion from './accordion';
 import axios from 'axios';
+import axiosClient from '../pages/productpage/axios_client';
 
 
 
@@ -29,7 +30,7 @@ function Filters(props) {
     // Fetch product filters from the server
     const fetchProductFilters = async () => {
         try {
-            const response = await axios.get("http://127.0.0.1:8000/api/variations");
+            const response = await axiosClient.get("/variations");
             setProductSize(response.data.sizes);
             setProductColors(response.data.colors);
             setCategories(response.data.category);
@@ -106,7 +107,6 @@ function Filters(props) {
         setMinPrice(0)
         setMaxPrice(10000)
         toggleModal()
-        console.log('btn was clicked');
     };
 
 
@@ -118,10 +118,6 @@ function Filters(props) {
         setMinPrice(0)
         setMaxPrice(10000)
     }
-
-    useEffect(()=>{
-        console.log(filterSize);
-    },[filterSize])
 
 
     return (

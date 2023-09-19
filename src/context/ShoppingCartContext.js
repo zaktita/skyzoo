@@ -12,6 +12,7 @@ const initialCartItems = localStorage.getItem("shopping-cart")
 const ShoppingCartProvider = ({ children }) => {
 
   const [cartItems, setCartItems] = useState(initialCartItems);
+  const [discount, setDiscount] = useState(localStorage.getItem('discount'));
 
 
   useEffect(() => {
@@ -48,16 +49,18 @@ const ShoppingCartProvider = ({ children }) => {
     }, 0);
   };
 
+ 
+
   return (
     <ShoppingCartContext.Provider
       value={{
         getItemQuantity,
-
         removeFromCart,
         cartQuantity,
         cartItems,
         updatecartItems,
         calculateTotal,
+        discount,
       }}
     >
       {children}
@@ -66,6 +69,4 @@ const ShoppingCartProvider = ({ children }) => {
 };
 
 export default ShoppingCartProvider;
-export const useShoppingCart = () => {
-  return useContext(ShoppingCartContext);
-};
+export const useShoppingCart = () => { return useContext(ShoppingCartContext)};
